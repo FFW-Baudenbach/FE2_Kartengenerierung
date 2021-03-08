@@ -20,10 +20,3 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
-
-// ---- UPDATE ARTIFACT
-task copyJar(type: Copy) {
-	from jar
-	into './deploy/winsw/'
-}
-build.dependsOn copyJar
