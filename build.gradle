@@ -4,7 +4,7 @@ plugins {
 	id 'java'
 }
 
-sourceCompatibility = JavaVersion.VERSION_15
+sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
 	mavenCentral()
@@ -20,3 +20,10 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+// ---- UPDATE ARTIFACT
+task copyJar(type: Copy) {
+	from jar
+	into './deploy/winsw/'
+}
+build.dependsOn copyJar
