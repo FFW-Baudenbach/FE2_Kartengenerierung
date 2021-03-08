@@ -37,8 +37,5 @@ out/
 .vscode/
 
 ### Prevent from check-in!!! ###
-src/main/resources/application-ffw.properties
-deploy/docker/docker-compose-ffw.yml
-deploy/winsw/FE2_Kartengenerierung-ffw.xml
-*-ffw.*
 *.jar
+/ffw/
