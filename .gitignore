@@ -37,5 +37,5 @@ out/
 .vscode/
 
 ### Prevent from check-in!!! ###
-src/main/resources/application-ffw.properties
-docker-compose-ffw.yml
+*.jar
+/ffw/
