@@ -9,7 +9,8 @@ Aus diesem Grund ist hier ein Service entstanden, der im Alarmablauf (Plugin [UR
 * Applikation bietet REST Services für verschiedene Karten und Dienste:  
   Overview: http://localhost:8080/overview?lat=49.123&lng=10.500  
   Route: http://localhost:8080/route?lat=49.123&lng=10.500  
-  Health: http://localhost:8080/health
+  Health: http://localhost:8080/actuator/health  
+  Test: http://localhost:8080/test
 * Erstellt eine Übersichtskarte mithilfe von [Google Static Maps API](https://developers.google.com/maps/documentation/maps-static/overview) 
   (API Key und optionaler Signing Key werden benötigt)
 * Fragt Hydranten im Umkreis per API von Wasserkarte.info ab und fügt sie als Marker in die Karte ein (optional). 
@@ -26,7 +27,7 @@ Ohne custom icons (kann auch gemischt werden)
 ![Alt text](screenshots/readme/overview_noicons.png?raw=true "Generated overview without custom icons")
 Route  
 ![Alt text](screenshots/readme/route.png?raw=true "Generated route")
-Health check mit Debug Links  
+Health check  
 ![Alt text](screenshots/readme/health.png?raw=true "Health check")
 ## Installation
 ### Docker

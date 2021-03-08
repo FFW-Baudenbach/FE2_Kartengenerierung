@@ -54,7 +54,7 @@ public class HydrantService {
 
         // Generate Markers (preferred with custom icon)
         int countCustomIcons = 0;
-        var customIcons = getVerifiedCustomIcons();
+        var customIcons = configuration.getVerifiedWasserkarteInfoCustomIcons();
         for (var entry : hydrantsByType.entrySet()) {
             Long sourceType = entry.getKey();
             String marker;
@@ -80,43 +80,6 @@ public class HydrantService {
         }
 
         return result.toString();
-    }
-
-    /**
-     * Get configured custom Icons. In addition checks if they are reachable.
-     * @return Map of custom Icons per SourceTypeId.
-     */
-    public Map<Long, String> getVerifiedCustomIcons()
-    {
-        var configuredIcons = configuration.getWasserkarteInfoCustomIcons();
-        List<Long> invalidUrls = new ArrayList<>();
-
-        for (Map.Entry<Long, String> entry : configuredIcons.entrySet()) {
-            HttpURLConnection huc = null;
-            try {
-                URL u = new URL ( entry.getValue());
-
-                huc = (HttpURLConnection)u.openConnection();
-                huc.setRequestMethod ("GET");
-                huc.connect();
-                if (huc.getResponseCode() != 200) {
-                    throw new IOException("Returned " + huc.getResponseCode());
-                }
-
-            }
-            catch (Exception e) {
-                System.out.println("Configured Icon [" + entry.getKey() + "] does not exist: " + e.getMessage());
-                invalidUrls.add(entry.getKey());
-            }
-            finally {
-                if (huc != null)
-                    huc.disconnect();
-            }
-        }
-
-        invalidUrls.forEach(configuredIcons::remove);
-
-        return configuredIcons;
     }
 
     /**
