@@ -9,7 +9,7 @@ plugins {
 sourceCompatibility = JavaVersion.VERSION_11
 
 group = "com.fe2.fe2_kartengenerierung"
-version = ""
+version = System.getenv("GITHUB_SHA") ? System.getenv("GITHUB_SHA").substring(0,8) : "SNAPSHOT"
 
 repositories {
 	mavenCentral()
