@@ -1,0 +1,46 @@
+version: '3.7'
+
+services:
+  fe2_kartengenerierung:
+    image: odin568/fe2_kartengenerierung:latest
+    container_name: fe2_kartengenerierung
+    ports:
+      - 8080:8080
+    restart: always
+    # Define external mapping to access maps from other processes
+#    volumes:
+#      - /tmp/maps:/maps
+    healthcheck:
+      test: curl --insecure --fail http://localhost:8080/actuator/health || exit 1
+      interval: 1m
+      timeout: 10s
+      retries: 3
+    environment:
+      # required
+      gcp.maps.apiKey: 123456
+      # optional
+      gcp.maps.signingKey: 123456
+      # optional
+      gcp.directions.apiKey: 123465
+      # optional
+      gcp.directions.origin.lat: 49.123
+      gcp.directions.origin.lng: 10.123
+      # required
+      output.folder: /maps
+      # required
+      output.format: png32
+      # optional
+      wk.token: 123456
+      # optional
+      wk.customIcons: 1=https://bit.ly/Hydrant16O.png;2=https://bit.ly/Hydrant16U.png;3=https://bit.ly/Hydrant16W.png
+  # Use docker-autoheal to restart container if the healthceck goes to unhealthy. 
+  # https://github.com/willfarrell/docker-autoheal
+  autoheal:
+    image: willfarrell/autoheal:1.1.0
+    container_name: autoheal
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+    environment:
+      - AUTOHEAL_START_PERIOD=60
+      - AUTOHEAL_INTERVAL=60

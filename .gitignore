@@ -37,4 +37,5 @@ out/
 .vscode/
 
 ### Prevent from check-in!!! ###
-src/main/resources/application-loc.properties
+src/main/resources/application-ffw.properties
+docker-compose-ffw.yml

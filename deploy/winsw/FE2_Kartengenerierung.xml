@@ -1,0 +1,35 @@
+<service>
+    <id>FE2_Kartengenerierung</id>
+    <name>FE2_Kartengenerierung</name>
+    <description>Service Wrapper around starting the Application</description>
+    <executable>java.exe</executable>
+    <arguments>-jar "%BASE%\FE2_Kartengenerierung.jar"</arguments>
+
+    <!-- required -->
+    <env name="gcp.maps.apiKey" value="123456" />
+    <!-- optional -->
+    <env name="gcp.maps.signingKey" value="123456" />
+    <!-- optional -->
+    <env name="gcp.directions.apiKey" value="123465" />
+    <!-- optional -->
+    <env name="gcp.directions.origin.lat" value="49.123" />
+    <env name="gcp.directions.origin.lng" value="10.123" />
+    <!-- required -->
+    <env name="output.folder" value="%BASE%\maps" />
+    <!-- required -->
+    <env name="output.format" value="png32" />
+    <!-- optional -->
+    <env name="wk.token" value="123456" />
+    <!-- optional -->
+    <env name="wk.customIcons" value="1=https://bit.ly/Hydrant16O.png;2=https://bit.ly/Hydrant16U.png;3=https://bit.ly/Hydrant16W.png" />
+  
+    <logpath>%BASE%\logs</logpath>
+    <log mode="roll-by-size">
+      <sizeThreshold>10240</sizeThreshold>
+      <keepFiles>8</keepFiles>
+    </log>
+    <onfailure action="restart" delay="10 sec"/>
+    <onfailure action="restart" delay="30 sec"/>
+    <onfailure action="restart" delay="60 sec"/>
+    <resetfailure>1 hour</resetfailure>
+</service>
