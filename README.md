@@ -36,7 +36,7 @@ Docker und Docker-Compose müssen installiert sein (Windows oder Linux)
 * ```docker-compose up -d```
 ### Windows Service (WinSW)
 Java muss installiert sein (Path-Variable gesetzt)
-* Lade [Archiv](https://downgit.github.io/#/home?url=https://github.com/odin568/FE2_Kartengenerierung/tree/dev/deploy/winsw&fileName=FE2_Kartengenerierung&rootDirectory=FE2_Kartengenerierung) herunter und entpacke es.
+* Lade [Archiv](https://downgit.github.io/#/home?url=https://github.com/odin568/FE2_Kartengenerierung/tree/main/deploy/winsw&fileName=FE2_Kartengenerierung&rootDirectory=FE2_Kartengenerierung) herunter und entpacke es.
 * Passe Konfiguration in *FE2_Kartengenerierung.xml* an (**env**)
 * ```./FE2_Kartengenerierung.bat install```
 ## Konfiguration
