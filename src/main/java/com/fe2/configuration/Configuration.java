@@ -1,14 +1,23 @@
 package com.fe2.configuration;
 
+import com.fe2.helper.FileHelper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.Status;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 @Component
-public class Configuration {
+public class Configuration implements HealthIndicator {
 
     @Value("${gcp.maps.apiKey}")
     private String gcp_maps_apiKey;
@@ -66,16 +75,55 @@ public class Configuration {
         return wk_token;
     }
 
-    public Map<Long, String> getWasserkarteInfoCustomIcons() {
+    public Map<Long, String> getConfiguredWasserkarteInfoCustomIcons() {
         var map = new TreeMap<Long, String>();
         wk_customIcons.forEach(l -> {
             if (l == null || l.isBlank())
                 return;
 
             String[] split = l.split("=");
-            map.put(Long.parseLong(split[0]), split[1]);
+            if (split.length != 2)
+                return;
+
+            Long sourceTypeId = Long.parseLong(split[0]);
+            String url = split[1];
+
+            map.put(sourceTypeId, url);
         });
         return map;
+    }
+
+    public Map<Long, String> getVerifiedWasserkarteInfoCustomIcons()
+    {
+        var configuredIcons = getConfiguredWasserkarteInfoCustomIcons();
+        List<Long> invalidUrls = new ArrayList<>();
+
+        for (Map.Entry<Long, String> entry : configuredIcons.entrySet()) {
+            HttpURLConnection huc = null;
+            try {
+                URL u = new URL ( entry.getValue());
+
+                huc = (HttpURLConnection)u.openConnection();
+                huc.setRequestMethod ("GET");
+                huc.connect();
+                if (huc.getResponseCode() != 200) {
+                    throw new IOException("Returned " + huc.getResponseCode());
+                }
+
+            }
+            catch (Exception e) {
+                System.out.println("Configured Icon [" + entry.getKey() + "] does not exist: " + e.getMessage());
+                invalidUrls.add(entry.getKey());
+            }
+            finally {
+                if (huc != null)
+                    huc.disconnect();
+            }
+        }
+
+        invalidUrls.forEach(configuredIcons::remove);
+
+        return configuredIcons;
     }
 
     public boolean isSigningEnabled() {
@@ -90,5 +138,29 @@ public class Configuration {
 
     public boolean isWasserkarteInfoApiEnabled() {
         return wk_token != null && !wk_token.isBlank();
+    }
+
+    @Override
+    public Health health() {
+
+        Health directoryHealth = FileHelper.canReadWriteDirectory(Paths.get(getOutputFolder()));
+        String directoryMsg = directoryHealth.getDetails().entrySet().iterator().next().getValue().toString();
+
+        boolean isUp = directoryHealth.getStatus() == Status.UP;
+
+        Map<String, Object> kv = new TreeMap<>();
+        kv.put("isDirectionsApiEnabled", isDirectionsApiEnabled());
+        kv.put("isSigningEnabled", isSigningEnabled());
+        kv.put("isWasserkarteInfoApiEnabled", isWasserkarteInfoApiEnabled());
+        kv.put("WasserkarteInfoCustomIcons-Configured", getConfiguredWasserkarteInfoCustomIcons().size());
+        kv.put("WasserkarteInfoCustomIcons-Valid", getVerifiedWasserkarteInfoCustomIcons().size());
+        kv.put("OutputDirectory-Configured", getOutputFolder());
+        kv.put("OutputDirectory-Valid", directoryMsg);
+        kv.put("OutputFormat", getOutputFormat());
+
+        if (isUp)
+            return Health.up().withDetails(kv).build();
+
+        return Health.down().withDetails(kv).build();
     }
 }

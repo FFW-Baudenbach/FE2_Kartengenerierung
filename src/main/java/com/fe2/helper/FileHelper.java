@@ -1,5 +1,6 @@
 package com.fe2.helper;
 
+import org.springframework.boot.actuate.health.Health;
 import org.springframework.http.MediaType;
 
 import java.io.IOException;
@@ -44,5 +45,18 @@ public class FileHelper {
         }
         Files.createFile(targetPath);
         Files.write(targetPath, image);
+    }
+
+    public static Health canReadWriteDirectory(final Path dir) {
+        if (!Files.exists(dir))
+            return Health.down().withDetail(dir.toString(), "Directory does not exist").build();
+        if (!Files.isDirectory(dir))
+            return Health.down().withDetail(dir.toString(), "Not a directory").build();
+        if (!Files.isReadable(dir))
+            return Health.down().withDetail(dir.toString(), "Directory is not readable").build();
+        if (!Files.isWritable(dir))
+            return Health.down().withDetail(dir.toString(), "Directory is not writable").build();
+
+        return Health.up().withDetail(dir.toString(), "OK").build();
     }
 }
