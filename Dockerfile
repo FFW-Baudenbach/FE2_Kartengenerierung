@@ -1,7 +1,7 @@
 FROM openjdk:15-alpine3.12 AS build
 COPY . /home/gradle/src
 WORKDIR /home/gradle/src
-RUN ./gradlew build
+RUN ./gradlew build -PRELEASE_VERSION=$DOCKER_TAG
 
 FROM openjdk:15-alpine3.12
 # App is running on default port
