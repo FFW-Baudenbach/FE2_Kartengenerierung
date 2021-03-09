@@ -6,7 +6,8 @@ plugins {
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
-version = System.getenv("RELEASE_VERSION") ?: "SNAPSHOT"
+// GitHub-Version >> Docker Version >> Fallback
+version = System.getenv("RELEASE_VERSION") ?: (System.getenv("DOCKER_TAG") ?: "SNAPSHOT")
 
 // Omit version number in artifacts for simpler releases
 bootJar.archiveFileName = "FE2_Kartengenerierung.jar"
@@ -25,3 +26,14 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+// Build zip containing WinSW ServiceWrapper and Jar File
+task packageDistribution(type: Zip) {
+	archiveFileName = "FE2_Kartengenerierung-${archiveVersion.get()}.zip"
+	destinationDirectory = file("$buildDir/dist")
+
+	from "$buildDir/../deploy/winsw", "$buildDir/libs"
+	dependsOn(assemble)
+}
+
+build.dependsOn(packageDistribution)
