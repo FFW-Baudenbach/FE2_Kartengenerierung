@@ -27,6 +27,10 @@ test {
 	useJUnitPlatform()
 }
 
+springBoot {
+	buildInfo()
+}
+
 // Build zip containing WinSW ServiceWrapper and Jar File
 task packageDistribution(type: Zip) {
 	archiveFileName = "FE2_Kartengenerierung-${archiveVersion.get()}.zip"
