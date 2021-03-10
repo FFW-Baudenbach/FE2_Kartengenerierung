@@ -7,7 +7,7 @@ plugins {
 
 sourceCompatibility = JavaVersion.VERSION_11
 // GitHub-Version >> Docker Version >> Fallback
-version = System.getenv("RELEASE_VERSION") ?: (project.getProperty("RELEASE_VERSION") ?: "SNAPSHOT")
+version = System.getenv("RELEASE_VERSION") ?: (project.hasProperty("RELEASE_VERSION") ? project.getProperty("RELEASE_VERSION") : "SNAPSHOT")
 
 println("Building version $version ...")
 
@@ -41,5 +41,12 @@ task packageDistribution(type: Zip) {
 	from "$buildDir/../deploy/winsw", "$buildDir/libs"
 	dependsOn(assemble)
 }
+// Build docker-compose.yml with correct version
+task prepareDockerCompose(type: Copy) {
+	from "$buildDir/../deploy/docker/docker-compose.yml"
+	into "$buildDir/dist"
+	filter { line -> line.replaceAll('latest', version) }
+}
 
+build.dependsOn(prepareDockerCompose)
 build.dependsOn(packageDistribution)
