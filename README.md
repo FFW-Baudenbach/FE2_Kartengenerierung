@@ -31,13 +31,14 @@ Health check
 ![Alt text](screenshots/readme/health.png?raw=true "Health check")
 ## Installation
 ### Docker
-Docker und Docker-Compose müssen installiert sein (Windows oder Linux)
+Vorbedinung: Docker und Docker-Compose müssen installiert sein (Windows oder Linux)
 * Lade [docker-compose.yml](https://github.com/odin568/FE2_Kartengenerierung/releases) herunter
 * Passe Konfiguration an (**volumes**, **environments**)
 * ```docker-compose up -d```
 * Für Updates genügt es in Zukunft die Versionsnummer in der Datei *docker-compose.yml* anzupassen.
-### Windows Service (WinSW)
-Java muss installiert sein (Path-Variable gesetzt)
+### Windows Service
+*Realisiert durch [WinSW](https://github.com/winsw/winsw)*  
+Vorbedinung: Java (mindestens Version 11) muss installiert sein (Path-Variable gesetzt)
 * Lade Archiv [FE2_Kartengenerierung-<version\>.zip](https://github.com/odin568/FE2_Kartengenerierung/releases) herunter und entpacke es.
 * Passe Konfiguration in *FE2_Kartengenerierung.xml* an (**env**)
 * ```./FE2_Kartengenerierung.bat install```
