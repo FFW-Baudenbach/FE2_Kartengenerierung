@@ -41,7 +41,7 @@ Java muss installiert sein (Path-Variable gesetzt)
 * Lade Archiv [FE2_Kartengenerierung-<version\>.zip](https://github.com/odin568/FE2_Kartengenerierung/releases) herunter und entpacke es.
 * Passe Konfiguration in *FE2_Kartengenerierung.xml* an (**env**)
 * ```./FE2_Kartengenerierung.bat install```
-* Für Updates genügt es in Zukunft den Service zu stoppen und das aktuellste *FE2_Kartengenerierung.jar* herunterzuladen und damit das alte zu ersetzen. Dann kann der Service wieder gestartet werden.
+* Für Updates genügt es in Zukunft den Service zu stoppen und das aktuellste [FE2_Kartengenerierung.jar](https://github.com/odin568/FE2_Kartengenerierung/releases) herunterzuladen und damit das alte zu ersetzen. Dann kann der Service wieder gestartet werden.
 ## Konfiguration
 Das Tool benötigt Konfiguration, insbesondere API-Keys. Des Weiteren gibt es optionale Schalter.  
 Die gesamte Konfiguration erfolgt über Umgebungsvariablen, die entweder manuell oder über Docker/WinSW (s.o.) gesetzt werden.  
