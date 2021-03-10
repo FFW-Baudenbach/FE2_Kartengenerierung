@@ -28,8 +28,7 @@ public class UrlBuilder {
 
     private final String baseUrl = "https://maps.googleapis.com/maps/api/staticmap";
 
-
-    public URL generateOverviewUrl(final double lat, final double lng) throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException
+    public URL generateOverviewRoadmapUrl(final double lat, final double lng) throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException
     {
         String url = baseUrl + "?size=640x640";
 
@@ -40,12 +39,33 @@ public class UrlBuilder {
         url += UrlHelper.buildProperParameter("maptype", "roadmap"); // Streets
         url += UrlHelper.buildProperParameter("style", "feature:poi|visibility:off"); // Don't show POIs
         url += UrlHelper.buildProperParameter("style", "feature:transit|visibility:off"); // Don't show Transit symbols
-        url += UrlHelper.buildProperParameter("markers", "color:red|" + lat + "," + lng); // Destination
-        url += hydrantService.generateHydrantsAsMarkers(lat, lng, 100, 250);
+        url += UrlHelper.buildProperParameter("markers", "color:red|size:tiny|" + lat + "," + lng); // Destination
+        url += hydrantService.generateHydrantsAsMarkers(lat, lng, 100, 250, true);
 
         Optional<String> route = destinationService.getEncodedPolylines(lat, lng);
         if (route.isPresent())
             url += UrlHelper.buildProperParameter("path", "color:0x0000ff50|weight:5|enc:" + route.get());
+
+        return authorizeStaticMapsApiUrl(url);
+    }
+
+    public URL generateDetailUrl(final double lat, final double lng) throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException
+    {
+        String url = baseUrl + "?size=640x640";
+
+        url += UrlHelper.buildProperParameter("scale", "2");
+        url += UrlHelper.buildProperParameter("center", lat + "," + lng);
+        url += UrlHelper.buildProperParameter("zoom", "18");
+        url += UrlHelper.buildProperParameter("format", configuration.getOutputFormat());
+        url += UrlHelper.buildProperParameter("maptype", "hybrid"); // Streets
+        url += UrlHelper.buildProperParameter("style", "feature:poi|visibility:off"); // Don't show POIs
+        url += UrlHelper.buildProperParameter("style", "feature:transit|visibility:off"); // Don't show Transit symbols
+        url += UrlHelper.buildProperParameter("markers", "color:red|size:mid|" + lat + "," + lng); // Destination
+        url += hydrantService.generateHydrantsAsMarkers(lat, lng, 100, 250, false);
+
+        Optional<String> route = destinationService.getEncodedPolylines(lat, lng);
+        if (route.isPresent())
+            url += UrlHelper.buildProperParameter("path", "color:0x0000ff80|weight:5|enc:" + route.get());
 
         return authorizeStaticMapsApiUrl(url);
     }

@@ -45,7 +45,10 @@ public class MapGenerator {
         try {
             switch (endpoint) {
                 case "overview":
-                    url = builder.generateOverviewUrl(lat, lng);
+                    url = builder.generateOverviewRoadmapUrl(lat, lng);
+                    break;
+                case "detail":
+                    url = builder.generateDetailUrl(lat, lng);
                     break;
                 case "route":
                     url = builder.generateRouteUrl(lat, lng);

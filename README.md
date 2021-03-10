@@ -21,13 +21,13 @@ Aus diesem Grund ist hier ein Service entstanden, der im Alarmablauf (Plugin [UR
 * Gibt die Karte als Response zurück.  
 * Speicherung der Karten an beliebigem Ort (für Depeschendruck), optional abschaltbar (bspw. für Integration in andere Systeme).
 ## Beispiel
-Mit custom icons (kann auch gemischt werden)  
+**Overview** *(Mit optionalen eigenen Icons)*  
 ![Alt text](screenshots/readme/overview.png?raw=true "Generated overview with custom icons")
-Ohne custom icons (kann auch gemischt werden)  
-![Alt text](screenshots/readme/overview_noicons.png?raw=true "Generated overview without custom icons")
-Route  
+**Detail**  *(Ohne eigene Icons)*
+![Alt text](screenshots/readme/detail.png?raw=true "Generated detail")
+**Route**  
 ![Alt text](screenshots/readme/route.png?raw=true "Generated route")
-Health check  
+**Health check**  
 ![Alt text](screenshots/readme/health.png?raw=true "Health check")
 ## Installation
 ### Docker

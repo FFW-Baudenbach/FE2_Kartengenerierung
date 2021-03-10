@@ -18,10 +18,10 @@ public class TestController {
     @Autowired
     public InputController inputController;
 
-    @Value("${debug.lat:49.646412071556114}")
+    @Value("${debug.lat:49.64703345265409}")
     private double debugLat;
 
-    @Value("${debug.lng:10.564397866729674}")
+    @Value("${debug.lng:10.566260347368512}")
     private double debugLng;
 
     @GetMapping("/test")
@@ -32,6 +32,7 @@ public class TestController {
         StringBuilder htmlTable = new StringBuilder();
         htmlTable.append("<html><head><title>TEST</title></head><body><table>");
 
+        // Overview
         long start = System.currentTimeMillis();
         var response = inputController.overview(debugLat, debugLng, store);
         long finish = System.currentTimeMillis();
@@ -43,6 +44,19 @@ public class TestController {
             error = true;
         }
 
+        // Route
+        start = System.currentTimeMillis();
+        response = inputController.detail(debugLat, debugLng, store);
+        finish = System.currentTimeMillis();
+        if (response.getStatusCode() == HttpStatus.OK) {
+            addTableLine(htmlTable, false, "<a href=\"/detail?lat=" + debugLat + "&lng=" + debugLng + "&store=" + store + "\">/detail</a>", (finish - start) + "ms");
+        }
+        else {
+            addTableLine(htmlTable, true, "/detail", response.getBody().toString());
+            error = true;
+        }
+
+        // Route
         start = System.currentTimeMillis();
         response = inputController.route(debugLat, debugLng, store);
         finish = System.currentTimeMillis();
