@@ -1,4 +1,5 @@
 FROM openjdk:15-alpine3.12 AS build
+ARG DOCKER_TAG
 COPY . /home/gradle/src
 WORKDIR /home/gradle/src
 RUN ./gradlew clean build -PRELEASE_VERSION=$DOCKER_TAG

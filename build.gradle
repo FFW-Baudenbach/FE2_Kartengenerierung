@@ -7,9 +7,18 @@ plugins {
 
 sourceCompatibility = JavaVersion.VERSION_11
 // GitHub-Version >> Docker Version >> Fallback
-version = System.getenv("RELEASE_VERSION") ?: (project.hasProperty("RELEASE_VERSION") ? project.getProperty("RELEASE_VERSION") : "SNAPSHOT")
-
-println("Building version $version ...")
+if (System.getenv("RELEASE_VERSION")) {
+	version = System.getenv("RELEASE_VERSION")
+	println("Building version $version from environment variable")
+}
+else if (project.hasProperty("RELEASE_VERSION") && project.getProperty("RELEASE_VERSION") && !project.getProperty("RELEASE_VERSION").allWhitespace) {
+	version = project.getProperty("RELEASE_VERSION")
+	println("Building version $version from property")
+}
+else {
+	version = "SNAPSHOT"
+	println("Building version $version from fallback")
+}
 
 // Omit version number in artifacts for simpler releases
 bootJar.archiveFileName = "FE2_Kartengenerierung.jar"
