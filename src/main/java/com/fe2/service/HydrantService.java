@@ -8,10 +8,9 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.*;
+import java.util.Map;
+import java.util.Optional;
+import java.util.TreeMap;
 
 @Service
 public class HydrantService {
@@ -30,7 +29,7 @@ public class HydrantService {
      * @param range
      * @return markers parameter like &markers=...&markers=... or empty string
      */
-    public String generateHydrantsAsMarkers(final double lat, final double lng, final int numItems, final int range)
+    public String generateHydrantsAsMarkers(final double lat, final double lng, final int numItems, final int range, final boolean useCustomIcons)
     {
         Optional<WasserkarteInfoResponse> hydrants = getHydrants(lat, lng, numItems, range);
 
@@ -60,12 +59,12 @@ public class HydrantService {
             String marker;
 
             // Only up to 5 custom icons supported by API
-            if (countCustomIcons <= 5 && customIcons.containsKey(sourceType)) {
+            if (useCustomIcons && countCustomIcons <= 5 && customIcons.containsKey(sourceType)) {
                 marker = "anchor:center|icon:" + customIcons.get(sourceType) + entry.getValue();
                 countCustomIcons++;
             }
             else {
-                String label = String.valueOf(sourceType);
+                String label = "H";
                 if (sourceType.equals(1L))
                     label = "O"; // Oberflurhydrant (Ü from Überflurhydrant is not supported, U already occupied)
                 else if (sourceType.equals(2L))
