@@ -7,7 +7,7 @@ plugins {
 
 sourceCompatibility = JavaVersion.VERSION_11
 // GitHub-Version >> Docker Version >> Fallback
-version = System.getenv("RELEASE_VERSION") ?: (System.getProperty("RELEASE_VERSION") ?: "SNAPSHOT")
+version = System.getenv("RELEASE_VERSION") ?: (System.getenv("DOCKER_TAG") ?: "SNAPSHOT")
 
 println("Building version $version ...")
 
