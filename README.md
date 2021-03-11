@@ -15,13 +15,13 @@ Aus diesem Grund ist hier ein Service entstanden, der im Alarmablauf (Plugin [UR
   Test: http://localhost:8080/test (zum testen, debuggen, ...) 
 * Erstellt eine Übersichtskarte mithilfe von [Google Static Maps API](https://developers.google.com/maps/documentation/maps-static/overview) 
   (API Key und optionaler Signing Key werden benötigt)
-* Fragt Hydranten im Umkreis per API von Wasserkarte.info ab und fügt sie als Marker in die Karte ein (optional). 
-  Dabei werden (bis zu 5) eigene Icons unterstützt, müssen aber getrennt gehostet werden. 
+* Fragt Hydranten im Umkreis per API von [Wasserkarte.info](https://wasserkarte.info) ab (optional, API Key wirdd benötigt) und fügt sie als Marker in die Karte ein. 
+  Dabei werden (bis zu 5) eigene Icons unterstützt, **müssen aber separat gehostet werden**. 
   Die Applikation prüft, ob die Icons erreichbar sind. Falls nicht: Fallback auf default icon.
 * Erstellt eine Routenkarte mithilfe von [Google Directions API](https://developers.google.com/maps/documentation/directions/overview)
   (API Key wird benötigt)
-* Gibt die Karte als Response zurück.  
-* Speicherung der Karten an beliebigem Ort (für Depeschendruck), optional abschaltbar (bspw. für Integration in andere Systeme).
+* Gibt die Karte als HTTP Response zurück.  
+* Speichert die Karten an beliebigem Ort auf der Festplatte (für Depeschendruck). Dies ist optional abschaltbar (bspw. für Integration in andere Systeme wie AM4 über [Website Ansicht](https://alamos-support.atlassian.net/wiki/spaces/documentation/pages/219480152/Website+Ansicht)).
 ## Beispiel
 **Overview** *(Mit optionalen eigenen Icons)*  
 ![Alt text](screenshots/readme/overview.png?raw=true "Generated overview with custom icons")
