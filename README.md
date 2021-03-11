@@ -1,4 +1,5 @@
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/odin568/FE2_Kartengenerierung/Java%20CI%20with%20Gradle?style=plastic) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/odin568/FE2_Kartengenerierung?style=plastic) ![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/odin568/fe2_kartengenerierung?style=plastic) ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/odin568/fe2_kartengenerierung?style=plastic)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/odin568/FE2_Kartengenerierung/Java%20CI%20with%20Gradle?style=plastic) ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/odin568/fe2_kartengenerierung?style=plastic)  
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/odin568/FE2_Kartengenerierung?style=plastic) ![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/odin568/fe2_kartengenerierung?style=plastic) 
 
 # FE2_Kartengenerierung
 ## Motivation
@@ -8,9 +9,10 @@ Aus diesem Grund ist hier ein Service entstanden, der im Alarmablauf (Plugin [UR
 ## Features
 * Applikation bietet REST Services für verschiedene Karten und Dienste:  
   Overview: http://localhost:8080/overview?lat=49.123&lng=10.500  
+  Detail: http://localhost:8080/detail?lat=49.123&lng=10.500  
   Route: http://localhost:8080/route?lat=49.123&lng=10.500  
   Health: http://localhost:8080/actuator/health  
-  Test: http://localhost:8080/test
+  Test: http://localhost:8080/test (zum testen, debuggen, ...) 
 * Erstellt eine Übersichtskarte mithilfe von [Google Static Maps API](https://developers.google.com/maps/documentation/maps-static/overview) 
   (API Key und optionaler Signing Key werden benötigt)
 * Fragt Hydranten im Umkreis per API von Wasserkarte.info ab und fügt sie als Marker in die Karte ein (optional). 
