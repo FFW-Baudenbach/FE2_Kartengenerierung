@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Optional;
 
 @Service
 public class MapGenerator {
@@ -24,7 +25,7 @@ public class MapGenerator {
     @Autowired
     private Configuration configuration;
 
-    public ResponseEntity<Object> generateMap(final String endpoint, final double lat, final double lng, final boolean store)
+    public ResponseEntity<Object> generateMap(final String endpoint, final double lat, final double lng, final boolean store, Optional<String> size)
     {
         Path outputFile = FileHelper.getFullOutputFilePath(configuration.getOutputFolder(), endpoint, configuration.getOutputFormat());
 
@@ -41,17 +42,19 @@ public class MapGenerator {
         if (lat < lng || lat < 47 || lat > 54 || lng < 5 || lng > 14)
             return generateErrorResponse("ERROR: Input seems strange - did you confound latitude and longitude?");
 
+        String sizeParam = size.orElse("640x640");
+
         URL url;
         try {
             switch (endpoint) {
                 case "overview":
-                    url = builder.generateOverviewRoadmapUrl(lat, lng);
+                    url = builder.generateOverviewRoadmapUrl(lat, lng, sizeParam);
                     break;
                 case "detail":
-                    url = builder.generateDetailUrl(lat, lng);
+                    url = builder.generateDetailUrl(lat, lng, sizeParam);
                     break;
                 case "route":
-                    url = builder.generateRouteUrl(lat, lng);
+                    url = builder.generateRouteUrl(lat, lng, sizeParam);
                     break;
                 default:
                     throw new IllegalArgumentException(endpoint + " not supported!");
