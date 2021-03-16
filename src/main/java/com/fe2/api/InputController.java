@@ -40,6 +40,17 @@ public class InputController {
     }
 
     /*
+    Example: http://localhost:8080/detail?lat=49.646412071556114&lng=10.564397866729674
+    */
+    @GetMapping("/detail")
+    public ResponseEntity<Object> detail(@RequestParam(value = "lat") double lat,
+                                         @RequestParam(value = "lng") double lng,
+                                         @RequestParam(value = "store", defaultValue = "true") boolean store)
+    {
+        return mapGenerator.generateMap("detail", lat, lng, store);
+    }
+
+    /*
     Example: http://localhost:8080/route?lat=49.646412071556114&lng=10.564397866729674
      */
     @GetMapping("/route")

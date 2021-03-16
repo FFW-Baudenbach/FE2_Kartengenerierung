@@ -30,7 +30,7 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'com.google.maps:google-maps-services:0.17.0'
+	implementation 'com.google.maps:google-maps-services:0.18.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
