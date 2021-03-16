@@ -21,6 +21,7 @@ Aus diesem Grund ist hier ein Service entstanden, der im Alarmablauf (Plugin [UR
 * Erstellt eine Routenkarte mithilfe von [Google Directions API](https://developers.google.com/maps/documentation/directions/overview)
   (API Key wird benötigt)
 * Gibt die Karte als HTTP Response zurück.  
+* Optional: Größe der Karte konfigurierbar über URL-Parameter size (z.B. &size=320x320 )  
 * Speichert die Karten an beliebigem Ort auf der Festplatte (für Depeschendruck). Dies ist optional konfigurierbar (bspw. für Integration in andere Systeme wie AM4 über [Website Ansicht](https://alamos-support.atlassian.net/wiki/spaces/documentation/pages/219480152/Website+Ansicht)).
 ## Beispiel
 **Overview** *(Mit optionalen eigenen Icons)*  
