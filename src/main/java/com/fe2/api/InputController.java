@@ -21,10 +21,9 @@ public class InputController {
     @GetMapping("/overview")
     public ResponseEntity<Object> overview(@RequestParam(value = "lat") double lat,
                                            @RequestParam(value = "lng") double lng,
-                                           @RequestParam(value = "store", defaultValue = "false") boolean store,
                                            @RequestParam(value="size") Optional<String> size)
     {
-        return mapGenerator.generateMap("overview", lat, lng, store, size);
+        return mapGenerator.generateMap("overview", lat, lng, size);
     }
 
     /*
@@ -33,21 +32,9 @@ public class InputController {
     @GetMapping("/detail")
     public ResponseEntity<Object> detail(@RequestParam(value = "lat") double lat,
                                          @RequestParam(value = "lng") double lng,
-                                         @RequestParam(value = "store", defaultValue = "false") boolean store,
                                          @RequestParam(value="size") Optional<String> size)
     {
-        return mapGenerator.generateMap("detail", lat, lng, store, size);
-    }
-
-    /*
-    Example: http://localhost:8080/detail?lat=49.646412071556114&lng=10.564397866729674
-    */
-    @GetMapping("/detail")
-    public ResponseEntity<Object> detail(@RequestParam(value = "lat") double lat,
-                                         @RequestParam(value = "lng") double lng,
-                                         @RequestParam(value = "store", defaultValue = "true") boolean store)
-    {
-        return mapGenerator.generateMap("detail", lat, lng, store);
+        return mapGenerator.generateMap("detail", lat, lng, size);
     }
 
     /*
@@ -56,12 +43,9 @@ public class InputController {
     @GetMapping("/route")
     public ResponseEntity<Object> route(@RequestParam(value = "lat") double lat,
                                         @RequestParam(value = "lng") double lng,
-                                        @RequestParam(value = "store", defaultValue = "false") boolean store,
                                         @RequestParam(value="size") Optional<String> size)
     {
-        return mapGenerator.generateMap("route", lat, lng, store, size);
+        return mapGenerator.generateMap("route", lat, lng, size);
     }
-
-
 
 }

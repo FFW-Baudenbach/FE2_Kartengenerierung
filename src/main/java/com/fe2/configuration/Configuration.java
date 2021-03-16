@@ -34,8 +34,8 @@ public class Configuration implements HealthIndicator {
     @Value("${gcp.directions.origin.lng:}")
     private String gcp_directions_origin_lng; // Optional
 
-    @Value("${output.folder}")
-    private String output_folder;
+    @Value("${output.folder:}")
+    private String output_folder; // Optional
 
     @Value("${output.format}")
     private String output_format;
@@ -126,6 +126,10 @@ public class Configuration implements HealthIndicator {
         return configuredIcons;
     }
 
+    public boolean isImageStoringEnabled() {
+        return output_folder != null && !output_folder.isBlank();
+    }
+
     public boolean isSigningEnabled() {
         return gcp_maps_signingKey != null && !gcp_maps_signingKey.isBlank();
     }
@@ -143,19 +147,23 @@ public class Configuration implements HealthIndicator {
     @Override
     public Health health() {
 
-        Health directoryHealth = FileHelper.canReadWriteDirectory(Paths.get(getOutputFolder()));
-        String directoryMsg = directoryHealth.getDetails().entrySet().iterator().next().getValue().toString();
-
-        boolean isUp = directoryHealth.getStatus() == Status.UP;
-
         Map<String, Object> kv = new TreeMap<>();
+        boolean isUp = true;
+
         kv.put("isDirectionsApiEnabled", isDirectionsApiEnabled());
+        kv.put("isImageStoringEnabled", isImageStoringEnabled());
         kv.put("isSigningEnabled", isSigningEnabled());
         kv.put("isWasserkarteInfoApiEnabled", isWasserkarteInfoApiEnabled());
         kv.put("WasserkarteInfoCustomIcons-Configured", getConfiguredWasserkarteInfoCustomIcons().size());
         kv.put("WasserkarteInfoCustomIcons-Valid", getVerifiedWasserkarteInfoCustomIcons().size());
-        kv.put("OutputDirectory-Configured", getOutputFolder());
-        kv.put("OutputDirectory-Valid", directoryMsg);
+        if (isImageStoringEnabled()) {
+            Health directoryHealth = FileHelper.canReadWriteDirectory(Paths.get(getOutputFolder()));
+            isUp = directoryHealth.getStatus() == Status.UP;
+
+            String directoryMsg = directoryHealth.getDetails().entrySet().iterator().next().getValue().toString();
+            kv.put("OutputDirectory-Configured", getOutputFolder());
+            kv.put("OutputDirectory-Valid", directoryMsg);
+        }
         kv.put("OutputFormat", getOutputFormat());
 
         if (isUp)

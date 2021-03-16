@@ -9,10 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 
@@ -25,19 +23,8 @@ public class MapGenerator {
     @Autowired
     private Configuration configuration;
 
-    public ResponseEntity<Object> generateMap(final String endpoint, final double lat, final double lng, final boolean store, Optional<String> size)
+    public ResponseEntity<Object> generateMap(final String endpoint, final double lat, final double lng, Optional<String> size)
     {
-        Path outputFile = FileHelper.getFullOutputFilePath(configuration.getOutputFolder(), endpoint, configuration.getOutputFormat());
-
-        // Ensure that no old file is lying around if we are in store mode.
-        try {
-            if (store && Files.exists(outputFile))
-                Files.delete(outputFile);
-        }
-        catch (IOException e) {
-            return generateErrorResponse("ERROR: Unable to delete image from previous execution!");
-        }
-
         // Germany: Latitude from 47.40724 to 54.9079 and longitude from 5.98815 to 14.98853.
         if (lat < lng || lat < 47 || lat > 54 || lng < 5 || lng > 14)
             return generateErrorResponse("ERROR: Input seems strange - did you confound latitude and longitude?");
@@ -73,7 +60,8 @@ public class MapGenerator {
         }
 
         try {
-            if (store) {
+            if (configuration.isImageStoringEnabled()) {
+                Path outputFile = FileHelper.getFullOutputFilePath(configuration.getOutputFolder(), endpoint, configuration.getOutputFormat());
                 FileHelper.writeToFile(image, outputFile);
             }
         }
