@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 public class InputController {
 
@@ -19,9 +21,9 @@ public class InputController {
     @GetMapping("/overview")
     public ResponseEntity<Object> overview(@RequestParam(value = "lat") double lat,
                                            @RequestParam(value = "lng") double lng,
-                                           @RequestParam(value = "store", defaultValue = "true") boolean store)
+                                           @RequestParam(value="size") Optional<String> size)
     {
-        return mapGenerator.generateMap("overview", lat, lng, store);
+        return mapGenerator.generateMap("overview", lat, lng, size);
     }
 
     /*
@@ -30,9 +32,9 @@ public class InputController {
     @GetMapping("/detail")
     public ResponseEntity<Object> detail(@RequestParam(value = "lat") double lat,
                                          @RequestParam(value = "lng") double lng,
-                                         @RequestParam(value = "store", defaultValue = "true") boolean store)
+                                         @RequestParam(value="size") Optional<String> size)
     {
-        return mapGenerator.generateMap("detail", lat, lng, store);
+        return mapGenerator.generateMap("detail", lat, lng, size);
     }
 
     /*
@@ -41,11 +43,9 @@ public class InputController {
     @GetMapping("/route")
     public ResponseEntity<Object> route(@RequestParam(value = "lat") double lat,
                                         @RequestParam(value = "lng") double lng,
-                                        @RequestParam(value = "store", defaultValue = "true") boolean store)
+                                        @RequestParam(value="size") Optional<String> size)
     {
-        return mapGenerator.generateMap("route", lat, lng, store);
+        return mapGenerator.generateMap("route", lat, lng, size);
     }
-
-
 
 }

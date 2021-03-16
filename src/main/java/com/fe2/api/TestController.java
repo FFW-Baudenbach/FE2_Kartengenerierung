@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.HtmlUtils;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 @RestController
 public class TestController {
@@ -25,7 +26,7 @@ public class TestController {
     private double debugLng;
 
     @GetMapping("/test")
-    public ResponseEntity<String> test(@RequestParam(value = "store", required = false, defaultValue = "false") boolean store)
+    public ResponseEntity<String> test()
     {
         boolean error = false;
 
@@ -34,10 +35,10 @@ public class TestController {
 
         // Overview
         long start = System.currentTimeMillis();
-        var response = inputController.overview(debugLat, debugLng, store);
+        var response = inputController.overview(debugLat, debugLng, Optional.empty());
         long finish = System.currentTimeMillis();
         if (response.getStatusCode() == HttpStatus.OK) {
-            addTableLine(htmlTable, false, "<a href=\"/overview?lat=" + debugLat + "&lng=" + debugLng + "&store=" + store + "\">/overview</a>", (finish-start) + "ms");
+            addTableLine(htmlTable, false, "<a href=\"/overview?lat=" + debugLat + "&lng=" + debugLng + "\">/overview</a>", (finish-start) + "ms");
         }
         else {
             addTableLine(htmlTable, true, "/overview", response.getBody().toString());
@@ -46,10 +47,10 @@ public class TestController {
 
         // Route
         start = System.currentTimeMillis();
-        response = inputController.detail(debugLat, debugLng, store);
+        response = inputController.detail(debugLat, debugLng, Optional.empty());
         finish = System.currentTimeMillis();
         if (response.getStatusCode() == HttpStatus.OK) {
-            addTableLine(htmlTable, false, "<a href=\"/detail?lat=" + debugLat + "&lng=" + debugLng + "&store=" + store + "\">/detail</a>", (finish - start) + "ms");
+            addTableLine(htmlTable, false, "<a href=\"/detail?lat=" + debugLat + "&lng=" + debugLng + "\">/detail</a>", (finish - start) + "ms");
         }
         else {
             addTableLine(htmlTable, true, "/detail", response.getBody().toString());
@@ -58,10 +59,10 @@ public class TestController {
 
         // Route
         start = System.currentTimeMillis();
-        response = inputController.route(debugLat, debugLng, store);
+        response = inputController.route(debugLat, debugLng, Optional.empty());
         finish = System.currentTimeMillis();
         if (response.getStatusCode() == HttpStatus.OK) {
-            addTableLine(htmlTable, false, "<a href=\"/route?lat=" + debugLat + "&lng=" + debugLng + "&store=" + store + "\">/route</a>", (finish - start) + "ms");
+            addTableLine(htmlTable, false, "<a href=\"/route?lat=" + debugLat + "&lng=" + debugLng + "\">/route</a>", (finish - start) + "ms");
         }
         else {
             addTableLine(htmlTable, true, "/route", response.getBody().toString());

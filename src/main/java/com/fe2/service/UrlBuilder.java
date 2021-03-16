@@ -28,9 +28,9 @@ public class UrlBuilder {
 
     private final String baseUrl = "https://maps.googleapis.com/maps/api/staticmap";
 
-    public URL generateOverviewRoadmapUrl(final double lat, final double lng) throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException
+    public URL generateOverviewRoadmapUrl(final double lat, final double lng, String sizeParam) throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException
     {
-        String url = baseUrl + "?size=640x640";
+        String url = baseUrl + "?size=" + sizeParam;
 
         url += UrlHelper.buildProperParameter("scale", "2");
         url += UrlHelper.buildProperParameter("center", lat + "," + lng);
@@ -49,9 +49,9 @@ public class UrlBuilder {
         return authorizeStaticMapsApiUrl(url);
     }
 
-    public URL generateDetailUrl(final double lat, final double lng) throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException
+    public URL generateDetailUrl(final double lat, final double lng, String sizeParam) throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException
     {
-        String url = baseUrl + "?size=640x640";
+        String url = baseUrl + "?size=" + sizeParam;
 
         url += UrlHelper.buildProperParameter("scale", "2");
         url += UrlHelper.buildProperParameter("center", lat + "," + lng);
@@ -70,9 +70,9 @@ public class UrlBuilder {
         return authorizeStaticMapsApiUrl(url);
     }
 
-    public URL generateRouteUrl(final double lat, final double lng) throws MalformedURLException, InvalidKeyException, NoSuchAlgorithmException
+    public URL generateRouteUrl(final double lat, final double lng, String sizeParam) throws MalformedURLException, InvalidKeyException, NoSuchAlgorithmException
     {
-        String url = baseUrl + "?size=640x640";
+        String url = baseUrl + "?size=" + sizeParam;
 
         url += UrlHelper.buildProperParameter("scale", "2");
         // No center or zoom required, use implicit positioning by markers and path
