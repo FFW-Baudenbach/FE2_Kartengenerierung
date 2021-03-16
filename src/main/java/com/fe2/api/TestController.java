@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.HtmlUtils;
 
@@ -38,7 +37,7 @@ public class TestController {
         var response = inputController.overview(debugLat, debugLng, Optional.empty());
         long finish = System.currentTimeMillis();
         if (response.getStatusCode() == HttpStatus.OK) {
-            addTableLine(htmlTable, false, "<a href=\"/overview?lat=" + debugLat + "&lng=" + debugLng + "\">/overview</a>", (finish-start) + "ms");
+            addTableLine(htmlTable, false, "<a href=\"/overview?lat=" + debugLat + "&lng=" + debugLng + "&size=640x640\">/overview</a>", (finish-start) + "ms");
         }
         else {
             addTableLine(htmlTable, true, "/overview", response.getBody().toString());
@@ -50,7 +49,7 @@ public class TestController {
         response = inputController.detail(debugLat, debugLng, Optional.empty());
         finish = System.currentTimeMillis();
         if (response.getStatusCode() == HttpStatus.OK) {
-            addTableLine(htmlTable, false, "<a href=\"/detail?lat=" + debugLat + "&lng=" + debugLng + "\">/detail</a>", (finish - start) + "ms");
+            addTableLine(htmlTable, false, "<a href=\"/detail?lat=" + debugLat + "&lng=" + debugLng + "&size=640x640\">/detail</a>", (finish - start) + "ms");
         }
         else {
             addTableLine(htmlTable, true, "/detail", response.getBody().toString());
@@ -62,7 +61,7 @@ public class TestController {
         response = inputController.route(debugLat, debugLng, Optional.empty());
         finish = System.currentTimeMillis();
         if (response.getStatusCode() == HttpStatus.OK) {
-            addTableLine(htmlTable, false, "<a href=\"/route?lat=" + debugLat + "&lng=" + debugLng + "\">/route</a>", (finish - start) + "ms");
+            addTableLine(htmlTable, false, "<a href=\"/route?lat=" + debugLat + "&lng=" + debugLng + "&size=640x640\">/route</a>", (finish - start) + "ms");
         }
         else {
             addTableLine(htmlTable, true, "/route", response.getBody().toString());
