@@ -23,13 +23,15 @@ public class HydrantService {
     /**
      * Creates hydrants as markers with custom icons (if configured).
      * If anything goes wrong returns an empty String
-     * @param lat
-     * @param lng
-     * @param numItems
-     * @param range
+     * @param lat lat
+     * @param lng lng
+     * @param numItems Max number of Hydrants
+     * @param range Distance to look at
+     * @param useCustomIcons Enable-/Disable custom icons.
+     * @param onlyWaterPoints Filter Hydrants by WaterPoints
      * @return markers parameter like &markers=...&markers=... or empty string
      */
-    public String generateHydrantsAsMarkers(final double lat, final double lng, final int numItems, final int range, final boolean useCustomIcons)
+    public String generateHydrantsAsMarkers(final double lat, final double lng, final int numItems, final int range, final boolean useCustomIcons, final boolean onlyWaterPoints)
     {
         Optional<WasserkarteInfoResponse> hydrants = getHydrants(lat, lng, numItems, range);
 
@@ -43,6 +45,11 @@ public class HydrantService {
         Map<Long, String> hydrantsByType = new TreeMap<>();
         hydrants.get().getWaterSources().forEach(h -> {
             Long sourceTypeId = h.getSourceType();
+
+            if (onlyWaterPoints && sourceTypeId != 3) {
+                return;
+            }
+
             if (!hydrantsByType.containsKey(sourceTypeId)) {
                 hydrantsByType.put(sourceTypeId, "");
             }

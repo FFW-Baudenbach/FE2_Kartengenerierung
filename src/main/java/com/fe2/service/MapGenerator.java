@@ -38,10 +38,10 @@ public class MapGenerator {
                     url = builder.generateOverviewRoadmapUrl(lat, lng, sizeParam);
                     break;
                 case "detail":
-                    url = builder.generateDetailUrl(lat, lng, sizeParam);
+                    url = builder.generateDetailHybridUrl(lat, lng, sizeParam);
                     break;
                 case "route":
-                    url = builder.generateRouteUrl(lat, lng, sizeParam);
+                    url = builder.generateRouteRoadmapUrl(lat, lng, sizeParam);
                     break;
                 default:
                     throw new IllegalArgumentException(endpoint + " not supported!");
