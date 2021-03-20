@@ -39,17 +39,17 @@ public class UrlBuilder {
         url += UrlHelper.buildProperParameter("maptype", "roadmap"); // Streets
         url += UrlHelper.buildProperParameter("style", "feature:poi|visibility:off"); // Don't show POIs
         url += UrlHelper.buildProperParameter("style", "feature:transit|visibility:off"); // Don't show Transit symbols
-        url += UrlHelper.buildProperParameter("markers", "color:red|size:tiny|" + lat + "," + lng); // Destination
-        url += hydrantService.generateHydrantsAsMarkers(lat, lng, 100, 250, true);
+        url += UrlHelper.buildProperParameter("markers", "color:red|size:mid|" + lat + "," + lng); // Destination
+        url += hydrantService.generateHydrantsAsMarkers(lat, lng, 100, 250, true, false);
 
         Optional<String> route = destinationService.getEncodedPolylines(lat, lng);
         if (route.isPresent())
-            url += UrlHelper.buildProperParameter("path", "color:0x0000ff50|weight:5|enc:" + route.get());
+            url += UrlHelper.buildProperParameter("path", "color:0x0000ff60|weight:5|enc:" + route.get());
 
         return authorizeStaticMapsApiUrl(url);
     }
 
-    public URL generateDetailUrl(final double lat, final double lng, String sizeParam) throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException
+    public URL generateDetailHybridUrl(final double lat, final double lng, String sizeParam) throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException
     {
         String url = baseUrl + "?size=" + sizeParam;
 
@@ -57,11 +57,11 @@ public class UrlBuilder {
         url += UrlHelper.buildProperParameter("center", lat + "," + lng);
         url += UrlHelper.buildProperParameter("zoom", "18");
         url += UrlHelper.buildProperParameter("format", configuration.getOutputFormat());
-        url += UrlHelper.buildProperParameter("maptype", "hybrid"); // Streets
+        url += UrlHelper.buildProperParameter("maptype", "hybrid"); // Sattelite + Streets
         url += UrlHelper.buildProperParameter("style", "feature:poi|visibility:off"); // Don't show POIs
         url += UrlHelper.buildProperParameter("style", "feature:transit|visibility:off"); // Don't show Transit symbols
-        url += UrlHelper.buildProperParameter("markers", "color:red|size:mid|" + lat + "," + lng); // Destination
-        url += hydrantService.generateHydrantsAsMarkers(lat, lng, 100, 250, false);
+        url += UrlHelper.buildProperParameter("markers", "color:white|size:mid|" + lat + "," + lng); // Destination
+        url += hydrantService.generateHydrantsAsMarkers(lat, lng, 100, 250, false, false);
 
         Optional<String> route = destinationService.getEncodedPolylines(lat, lng);
         if (route.isPresent())
@@ -70,7 +70,7 @@ public class UrlBuilder {
         return authorizeStaticMapsApiUrl(url);
     }
 
-    public URL generateRouteUrl(final double lat, final double lng, String sizeParam) throws MalformedURLException, InvalidKeyException, NoSuchAlgorithmException
+    public URL generateRouteRoadmapUrl(final double lat, final double lng, String sizeParam) throws MalformedURLException, InvalidKeyException, NoSuchAlgorithmException
     {
         String url = baseUrl + "?size=" + sizeParam;
 
@@ -82,13 +82,16 @@ public class UrlBuilder {
         url += UrlHelper.buildProperParameter("style", "feature:transit|visibility:off"); // Don't show Transit symbols
         url += UrlHelper.buildProperParameter("markers", "color:white|size:tiny|" + configuration.getGcpDirectionsOriginLat() + "," + configuration.getGcpDirectionsOriginLng()); // Origin
         url += UrlHelper.buildProperParameter("markers", "color:red|size:mid|" + lat + "," + lng); // Destination
+        url += hydrantService.generateHydrantsAsMarkers(lat, lng, 100, 1000, true, true);
 
         Optional<String> route = destinationService.getEncodedPolylines(lat, lng);
         if (route.isPresent())
-            url += UrlHelper.buildProperParameter("path", "color:0x0000ff50|weight:5|enc:" + route.get());
+            url += UrlHelper.buildProperParameter("path", "color:0x0000ff60|weight:5|enc:" + route.get());
 
         return authorizeStaticMapsApiUrl(url);
     }
+
+
 
     private URL authorizeStaticMapsApiUrl(final String url) throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException
     {
