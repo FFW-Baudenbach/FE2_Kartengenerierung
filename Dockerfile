@@ -3,8 +3,7 @@ ARG DOCKER_TAG
 COPY . application
 WORKDIR application
 RUN ./gradlew clean build --no-daemon -PRELEASE_VERSION=$DOCKER_TAG
-ARG JAR_FILE=build/libs/*.jar
-COPY ${JAR_FILE} application.jar
+COPY build/libs/*.jar application.jar
 RUN java -Djarmode=layertools -jar application.jar extract
 
 
