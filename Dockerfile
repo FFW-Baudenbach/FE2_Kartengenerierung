@@ -6,7 +6,8 @@ WORKDIR application
 RUN ls -l && pwd
 RUN ./gradlew clean build --no-daemon -PRELEASE_VERSION=$DOCKER_TAG
 RUN ls -l && pwd
-COPY build/libs/*.jar application.jar
+RUN ls -l ./build/libs
+COPY ./build/libs/*.jar application.jar
 RUN java -Djarmode=layertools -jar application.jar extract
 
 
