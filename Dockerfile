@@ -8,9 +8,14 @@ RUN java -Djarmode=layertools -jar application.jar extract
 
 
 FROM openjdk:15-alpine3.12
+LABEL MAINTAINER="Markus Zellner webmaster@ffw-baudenbach.de"
+EXPOSE 8080
+
 RUN apk --no-cache add curl
 RUN mkdir -p /maps
-EXPOSE 8080
+
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring:spring
 
 WORKDIR application
 COPY --from=builder application/dependencies/ ./
