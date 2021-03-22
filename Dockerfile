@@ -7,7 +7,8 @@ RUN ls -l && pwd
 RUN ls -l ./build/libs
 ARG JAR_FILE=./build/libs/*.jar
 RUN echo $JAR_FILE
-COPY ${JAR_FILE} application.jar
+#COPY ${JAR_FILE} application.jar
+COPY ./build/libs/FE2_Kartengenerierung.jar application.jar
 RUN java -Djarmode=layertools -jar application.jar extract
 
 
