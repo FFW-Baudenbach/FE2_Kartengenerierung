@@ -11,7 +11,7 @@ FROM openjdk:15-alpine3.12
 LABEL MAINTAINER="Markus Zellner webmaster@ffw-baudenbach.de"
 EXPOSE 8080
 RUN apk --no-cache add curl
-RUN addgroup -S spring && adduser -S spring -G spring
+RUN addgroup -S --gid 10001 spring && adduser -S --uid 10000 spring -G spring
 RUN mkdir -p /maps
 RUN chown -R spring:spring /maps
 USER spring:spring
