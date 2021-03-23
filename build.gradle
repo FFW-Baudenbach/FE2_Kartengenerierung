@@ -44,7 +44,7 @@ springBoot {
 
 // Build zip containing WinSW ServiceWrapper and Jar File
 task packageDistribution(type: Zip) {
-	archiveFileName = "FE2_Kartengenerierung-${archiveVersion.get()}.zip"
+	archiveFileName = "FE2_Kartengenerierung_WinSW.zip"
 	destinationDirectory = file("$buildDir/dist")
 
 	from "$buildDir/../deploy/winsw", "$buildDir/libs"
