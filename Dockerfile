@@ -1,4 +1,4 @@
-FROM openjdk:15-alpine3.12 AS builder
+FROM adoptopenjdk:11-jdk-hotspot AS builder
 ARG DOCKER_TAG
 COPY . application
 WORKDIR application
@@ -7,7 +7,7 @@ RUN cp build/libs/*.jar application.jar
 RUN java -Djarmode=layertools -jar application.jar extract
 
 
-FROM openjdk:15-alpine3.12
+FROM adoptopenjdk:11-jre-hotspot
 LABEL maintainer="FFW Baudenbach <webmaster@ffw-baudenbach.de>"
 EXPOSE 8080
 RUN apk --no-cache add curl
