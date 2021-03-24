@@ -5,20 +5,25 @@ plugins {
 	id 'idea'
 }
 
-sourceCompatibility = JavaVersion.VERSION_11
+// Use LTS version
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+        vendor = JvmVendorSpec.ADOPTOPENJDK
+    }
+}
+
 // GitHub-Version >> Docker Version >> Fallback
 if (System.getenv("RELEASE_VERSION")) {
 	version = System.getenv("RELEASE_VERSION")
-	println("Building version $version from environment variable")
 }
 else if (project.hasProperty("RELEASE_VERSION") && project.getProperty("RELEASE_VERSION") && !project.getProperty("RELEASE_VERSION").allWhitespace) {
 	version = project.getProperty("RELEASE_VERSION")
-	println("Building version $version from property")
 }
 else {
 	version = "SNAPSHOT"
-	println("Building version $version from fallback")
 }
+println("Building version $version")
 
 // Omit version number in artifacts for simpler releases
 bootJar.archiveFileName = "FE2_Kartengenerierung.jar"
@@ -42,7 +47,7 @@ springBoot {
 	buildInfo()
 }
 
-// Build zip containing WinSW ServiceWrapper and Jar File
+// Create zip containing WinSW ServiceWrapper and Jar File
 task packageDistribution(type: Zip) {
 	archiveFileName = "FE2_Kartengenerierung_WinSW.zip"
 	destinationDirectory = file("$buildDir/dist")
@@ -50,12 +55,12 @@ task packageDistribution(type: Zip) {
 	from "$buildDir/../deploy/winsw", "$buildDir/libs"
 	dependsOn(assemble)
 }
-// Build docker-compose.yml with correct version
-task prepareDockerCompose(type: Copy) {
+// Adapt docker-compose.yml with correct version
+task adaptDockerCompose(type: Copy) {
 	from "$buildDir/../deploy/docker/docker-compose.yml"
 	into "$buildDir/dist"
 	filter { line -> line.replaceAll('latest', version) }
 }
 
-build.dependsOn(prepareDockerCompose)
+build.dependsOn(adaptDockerCompose)
 build.dependsOn(packageDistribution)
