@@ -1,3 +1,4 @@
 #!/bin/bash
 #docker build --build-arg DOCKER_TAG="$DOCKER_TAG" -f "$DOCKERFILE_PATH" -t "$IMAGE_NAME" .
+docker buildx create --use
 docker buildx build --platform linux/arm/v7,linux/arm64/v8,linux/amd64 --build-arg DOCKER_TAG="$DOCKER_TAG" -f "$DOCKERFILE_PATH" -t "$IMAGE_NAME" .
