@@ -25,13 +25,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build
 
-      - name: Archive production artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: jar
-          path: |
-            build/libs/*.jar
-
 ############# DOCKER BUILD
 
       - name: Set up QEMU environment
