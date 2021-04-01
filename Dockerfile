@@ -1,9 +1,6 @@
 FROM adoptopenjdk:11-jdk-hotspot AS builder
-ARG DOCKER_TAG
-COPY . application
 WORKDIR application
-RUN ./gradlew clean build --no-daemon -PRELEASE_VERSION=$DOCKER_TAG
-RUN cp build/libs/*.jar application.jar
+COPY build/libs/*.jar application.jar
 RUN java -Djarmode=layertools -jar application.jar extract
 
 
