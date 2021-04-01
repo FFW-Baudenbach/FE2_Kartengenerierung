@@ -1,5 +1,4 @@
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/odin568/FE2_Kartengenerierung/Java%20CI%20with%20Gradle?style=plastic) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/odin568/FE2_Kartengenerierung?style=plastic)  
-![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/odin568/fe2_kartengenerierung?style=plastic) ![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/odin568/fe2_kartengenerierung?style=plastic)  
 
 # FE2_Kartengenerierung
 ## Motivation
@@ -43,7 +42,8 @@ Bietet eine einfache Möglichkeit zum Testen und Debuggen inklusive Performancem
 ```http://localhost:8080/test```
 ## Installation
 ### Docker
-Vorbedingung: Docker und Docker-Compose müssen installiert sein (Windows oder Linux)
+Vorbedingung: Docker und Docker-Compose müssen installiert sein.  
+Architekturen: ```linux/amd64```, ```linux/arm/v7``` und ```linux/arm64```  
 * Lade [docker-compose.yml](https://github.com/odin568/FE2_Kartengenerierung/releases) herunter
 * Passe Konfiguration an (**volumes**, **environments**)
 * ```docker-compose up -d```
