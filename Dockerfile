@@ -7,8 +7,7 @@ RUN java -Djarmode=layertools -jar application.jar extract
 FROM adoptopenjdk:11-jre-hotspot-focal
 LABEL maintainer="FFW Baudenbach <webmaster@ffw-baudenbach.de>"
 EXPOSE 8080
-RUN apt-get install curl && apt-get clean
-RUN mkdir -p /maps && chown -R spring:spring /maps
+RUN mkdir -p /maps
 WORKDIR application
 COPY --from=builder application/dependencies/ ./
 COPY --from=builder application/spring-boot-loader/ ./
