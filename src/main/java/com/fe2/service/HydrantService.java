@@ -26,12 +26,12 @@ public class HydrantService {
      * @param lat lat
      * @param lng lng
      * @param numItems Max number of Hydrants
-     * @param range Distance to look at
+     * @param range Distance in km to look at
      * @param useCustomIcons Enable-/Disable custom icons.
      * @param onlyWaterPoints Filter Hydrants by WaterPoints
      * @return markers parameter like &markers=...&markers=... or empty string
      */
-    public String generateHydrantsAsMarkers(final double lat, final double lng, final int numItems, final int range, final boolean useCustomIcons, final boolean onlyWaterPoints)
+    public String generateHydrantsAsMarkers(final double lat, final double lng, final int numItems, final double range, final boolean useCustomIcons, final boolean onlyWaterPoints)
     {
         Optional<WasserkarteInfoResponse> hydrants = getHydrants(lat, lng, numItems, range);
 
@@ -93,10 +93,10 @@ public class HydrantService {
      * @param latitude
      * @param longitude
      * @param numItems
-     * @param range
+     * @param range in km
      * @return Optional response. Might be empty if no token present or on any other error.
      */
-    private Optional<WasserkarteInfoResponse> getHydrants(double latitude, double longitude, int numItems, int range)
+    private Optional<WasserkarteInfoResponse> getHydrants(double latitude, double longitude, int numItems, double range)
     {
         if (!configuration.isWasserkarteInfoApiEnabled())
             return Optional.empty();
