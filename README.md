@@ -10,7 +10,7 @@ Aus diesem Grund ist hier ein Service entstanden. Dieser bietet zwei Möglichkei
 ## Technische Beschreibung
 * Erstellt Karten mithilfe von [Google Static Maps API](https://developers.google.com/maps/documentation/maps-static/overview) 
   (API Key und optionaler Signing Key werden benötigt)
-* Fragt Hydranten im Umkreis per API von [Wasserkarte.info](https://wasserkarte.info) ab (optional, API Key wirdd benötigt) und fügt sie als Marker in die Karte ein. 
+* Fragt Hydranten im Umkreis per API von [Wasserkarte.info](https://wasserkarte.info) ab (optional, API Key wird benötigt) und fügt sie als Marker in die Karte ein. 
   Dabei werden (bis zu 5) eigene Icons unterstützt, **müssen aber separat gehostet werden**. 
   Die Applikation prüft, ob die Icons erreichbar sind. Falls nicht: Fallback auf default icon.
 * Erstellt Routenführung mithilfe von [Google Directions API](https://developers.google.com/maps/documentation/directions/overview)
