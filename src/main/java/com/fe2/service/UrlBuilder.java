@@ -40,7 +40,7 @@ public class UrlBuilder {
         url += UrlHelper.buildProperParameter("style", "feature:poi|visibility:off"); // Don't show POIs
         url += UrlHelper.buildProperParameter("style", "feature:transit|visibility:off"); // Don't show Transit symbols
         url += UrlHelper.buildProperParameter("markers", "color:red|size:mid|" + lat + "," + lng); // Destination
-        url += hydrantService.generateHydrantsAsMarkers(lat, lng, 100, 250, true, false);
+        url += hydrantService.generateHydrantsAsMarkers(lat, lng, 100, 0.5, true, false);
 
         Optional<String> route = destinationService.getEncodedPolylines(lat, lng);
         if (route.isPresent())
@@ -61,7 +61,7 @@ public class UrlBuilder {
         url += UrlHelper.buildProperParameter("style", "feature:poi|visibility:off"); // Don't show POIs
         url += UrlHelper.buildProperParameter("style", "feature:transit|visibility:off"); // Don't show Transit symbols
         url += UrlHelper.buildProperParameter("markers", "color:white|size:mid|" + lat + "," + lng); // Destination
-        url += hydrantService.generateHydrantsAsMarkers(lat, lng, 100, 250, false, false);
+        url += hydrantService.generateHydrantsAsMarkers(lat, lng, 100, 0.5, false, false);
 
         Optional<String> route = destinationService.getEncodedPolylines(lat, lng);
         if (route.isPresent())
@@ -82,7 +82,7 @@ public class UrlBuilder {
         url += UrlHelper.buildProperParameter("style", "feature:transit|visibility:off"); // Don't show Transit symbols
         url += UrlHelper.buildProperParameter("markers", "color:white|size:tiny|" + configuration.getGcpDirectionsOriginLat() + "," + configuration.getGcpDirectionsOriginLng()); // Origin
         url += UrlHelper.buildProperParameter("markers", "color:red|size:mid|" + lat + "," + lng); // Destination
-        url += hydrantService.generateHydrantsAsMarkers(lat, lng, 100, 750, true, true);
+        url += hydrantService.generateHydrantsAsMarkers(lat, lng, 100, 2, true, true);
 
         Optional<String> route = destinationService.getEncodedPolylines(lat, lng);
         if (route.isPresent())
