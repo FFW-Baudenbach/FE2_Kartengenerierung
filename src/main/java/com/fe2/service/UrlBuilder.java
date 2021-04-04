@@ -82,7 +82,7 @@ public class UrlBuilder {
         url += UrlHelper.buildProperParameter("style", "feature:transit|visibility:off"); // Don't show Transit symbols
         url += UrlHelper.buildProperParameter("markers", "color:white|size:tiny|" + configuration.getGcpDirectionsOriginLat() + "," + configuration.getGcpDirectionsOriginLng()); // Origin
         url += UrlHelper.buildProperParameter("markers", "color:red|size:mid|" + lat + "," + lng); // Destination
-        url += hydrantService.generateHydrantsAsMarkers(lat, lng, 100, 2, true, true);
+        url += hydrantService.generateHydrantsAsMarkers(lat, lng, 100, 2.5, true, true);
 
         Optional<String> route = destinationService.getEncodedPolylines(lat, lng);
         if (route.isPresent())
