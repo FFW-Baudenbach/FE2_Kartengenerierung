@@ -1,10 +1,10 @@
-FROM adoptopenjdk:11-jdk-hotspot-focal AS builder
+FROM adoptopenjdk:16-jdk-hotspot-focal AS builder
 WORKDIR application
 COPY build/libs/*.jar application.jar
 RUN java -Djarmode=layertools -jar application.jar extract
 
 
-FROM adoptopenjdk:11-jre-hotspot-focal
+FROM adoptopenjdk:16-jre-hotspot-focal
 LABEL maintainer="FFW Baudenbach <webmaster@ffw-baudenbach.de>"
 EXPOSE 8080
 RUN mkdir -p /maps
