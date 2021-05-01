@@ -18,6 +18,7 @@ Aus diesem Grund ist hier ein Service entstanden. Dieser bietet zwei Möglichkei
 * Gibt die Karte als HTTP Response zurück. Dadurch auch nutzbar im AM4 über Plugin [Website Ansicht](https://alamos-support.atlassian.net/wiki/spaces/documentation/pages/219480152/Website+Ansicht)
 * Optional: Größe der Karte konfigurierbar über URL-Parameter size (z.B. &size=320x320 )  
 * Optional: Speichert die Karten an beliebigem Ort auf der Festplatte. 
+* Optional: Mit dem URL-Parameter 'identifier' kann ein Zieldateiname (ohne Dateiendung) angegeben werden.
 ## Funktionen
 ### Overview
 *(Mit optionalen eigenen Icons)*  
