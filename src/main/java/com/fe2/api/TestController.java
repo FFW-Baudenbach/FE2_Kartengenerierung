@@ -34,7 +34,7 @@ public class TestController {
 
         // Overview
         long start = System.currentTimeMillis();
-        var response = inputController.overview(debugLat, debugLng, Optional.empty());
+        var response = inputController.overview(debugLat, debugLng, Optional.empty(), Optional.empty());
         long finish = System.currentTimeMillis();
         if (response.getStatusCode() == HttpStatus.OK) {
             addTableLine(htmlTable, false, "<a href=\"/overview?lat=" + debugLat + "&lng=" + debugLng + "&size=640x640\">/overview</a>", (finish-start) + "ms");
@@ -46,7 +46,7 @@ public class TestController {
 
         // Route
         start = System.currentTimeMillis();
-        response = inputController.detail(debugLat, debugLng, Optional.empty());
+        response = inputController.detail(debugLat, debugLng, Optional.empty(), Optional.empty());
         finish = System.currentTimeMillis();
         if (response.getStatusCode() == HttpStatus.OK) {
             addTableLine(htmlTable, false, "<a href=\"/detail?lat=" + debugLat + "&lng=" + debugLng + "&size=640x640\">/detail</a>", (finish - start) + "ms");
@@ -58,7 +58,7 @@ public class TestController {
 
         // Route
         start = System.currentTimeMillis();
-        response = inputController.route(debugLat, debugLng, Optional.empty());
+        response = inputController.route(debugLat, debugLng, Optional.empty(), Optional.empty());
         finish = System.currentTimeMillis();
         if (response.getStatusCode() == HttpStatus.OK) {
             addTableLine(htmlTable, false, "<a href=\"/route?lat=" + debugLat + "&lng=" + debugLng + "&size=640x640\">/route</a>", (finish - start) + "ms");
