@@ -23,13 +23,14 @@ public class MapGenerator {
     @Autowired
     private Configuration configuration;
 
-    public ResponseEntity<Object> generateMap(final String endpoint, final double lat, final double lng, Optional<String> size)
+    public ResponseEntity<Object> generateMap(final String endpoint, final double lat, final double lng, Optional<String> size, Optional<String> identifier)
     {
         // Germany: Latitude from 47.40724 to 54.9079 and longitude from 5.98815 to 14.98853.
         if (lat < lng || lat < 47 || lat > 54 || lng < 5 || lng > 14)
             return generateErrorResponse("ERROR: Input seems strange - did you confound latitude and longitude?");
 
         String sizeParam = size.orElse("640x640");
+        String filename = identifier.orElse(endpoint);
 
         URL url;
         try {
@@ -61,7 +62,7 @@ public class MapGenerator {
 
         try {
             if (configuration.isImageStoringEnabled()) {
-                Path outputFile = FileHelper.getFullOutputFilePath(configuration.getOutputFolder(), endpoint, configuration.getOutputFormat());
+                Path outputFile = FileHelper.getFullOutputFilePath(configuration.getOutputFolder(), filename, configuration.getOutputFormat());
                 FileHelper.writeToFile(image, outputFile);
             }
         }

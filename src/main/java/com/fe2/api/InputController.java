@@ -21,9 +21,10 @@ public class InputController {
     @GetMapping("/overview")
     public ResponseEntity<Object> overview(@RequestParam(value = "lat") double lat,
                                            @RequestParam(value = "lng") double lng,
-                                           @RequestParam(value="size") Optional<String> size)
+                                           @RequestParam(value="size") Optional<String> size,
+                                           @RequestParam(value="identifier") Optional<String> identifier)
     {
-        return mapGenerator.generateMap("overview", lat, lng, size);
+        return mapGenerator.generateMap("overview", lat, lng, size, identifier);
     }
 
     /*
@@ -32,9 +33,10 @@ public class InputController {
     @GetMapping("/detail")
     public ResponseEntity<Object> detail(@RequestParam(value = "lat") double lat,
                                          @RequestParam(value = "lng") double lng,
-                                         @RequestParam(value="size") Optional<String> size)
+                                         @RequestParam(value="size") Optional<String> size,
+                                         @RequestParam(value="identifier") Optional<String> identifier)
     {
-        return mapGenerator.generateMap("detail", lat, lng, size);
+        return mapGenerator.generateMap("detail", lat, lng, size, identifier);
     }
 
     /*
@@ -43,9 +45,10 @@ public class InputController {
     @GetMapping("/route")
     public ResponseEntity<Object> route(@RequestParam(value = "lat") double lat,
                                         @RequestParam(value = "lng") double lng,
-                                        @RequestParam(value="size") Optional<String> size)
+                                        @RequestParam(value="size") Optional<String> size,
+                                        @RequestParam(value="identifier") Optional<String> identifier)
     {
-        return mapGenerator.generateMap("route", lat, lng, size);
+        return mapGenerator.generateMap("route", lat, lng, size, identifier);
     }
 
 }
