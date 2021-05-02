@@ -30,7 +30,11 @@ public class MapGenerator {
             return generateErrorResponse("ERROR: Input seems strange - did you confound latitude and longitude?");
 
         String sizeParam = size.orElse("640x640");
-        String filename = identifier.orElse(endpoint);
+
+        String filename = endpoint;
+        if (identifier.isPresent()) {
+            filename += "_" + identifier.get();
+        }
 
         URL url;
         try {
