@@ -7,6 +7,10 @@ import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -46,6 +50,32 @@ public class Configuration implements HealthIndicator {
     @Value("#{'${wk.customIcons:}'.split(';')}")
     private List<String> wk_customIcons; // Optional
 
+    /**
+     * Create index.html file.
+     * This avoids directory listing if the directory is exposed via webserver.
+     * In addition it is used by FE2_Monitoring to check if maps can be reached.
+     */
+    @PostConstruct
+    public void postConstruct() {
+
+        if (!isImageStoringEnabled()) {
+            return;
+        }
+
+        try {
+            File f = Paths.get(getOutputFolder(), "index.html").toFile();
+            f.createNewFile();
+
+            String html = "<!doctype html><title>Directory listing not allowed</title>Directory listing not allowed.";
+
+            try(BufferedWriter writer = new BufferedWriter(new FileWriter(f))) {
+                writer.write(html);
+            }
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
     public String getGcpMapsApiKey() {
         return gcp_maps_apiKey;

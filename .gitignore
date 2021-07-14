@@ -40,3 +40,4 @@ out/
 *.jar
 !gradle-wrapper.jar
 /ffw/
+/screenshots/index.html

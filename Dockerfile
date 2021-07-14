@@ -8,7 +8,6 @@ FROM adoptopenjdk:16-jre-hotspot-focal
 LABEL maintainer="FFW Baudenbach <webmaster@ffw-baudenbach.de>"
 EXPOSE 8080
 RUN mkdir -p /maps
-COPY index.html /maps/index.html
 WORKDIR application
 COPY --from=builder application/dependencies/ ./
 COPY --from=builder application/spring-boot-loader/ ./
