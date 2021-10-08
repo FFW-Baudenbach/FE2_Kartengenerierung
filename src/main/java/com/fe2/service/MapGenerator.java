@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
 import org.springframework.util.StreamUtils;
 
 import java.io.InputStream;
@@ -22,6 +23,8 @@ public class MapGenerator {
 
     @Autowired
     private Configuration configuration;
+
+
 
     public ResponseEntity<Object> generateMap(final String endpoint, final double lat, final double lng, Optional<String> size, Optional<String> identifier)
     {
@@ -72,6 +75,30 @@ public class MapGenerator {
         }
         catch (Exception e) {
             return generateErrorResponse("ERROR: Exception storing image: " + e.getMessage());
+        }
+
+        return ResponseEntity
+                .ok()
+                .contentType(FileHelper.getMediaType(configuration.getOutputFormat()))
+                .body(image);
+    }
+
+    public ResponseEntity<Object> generateMap(final MultiValueMap<String, String> parameters, boolean showHydrants, boolean showRoute)
+    {
+        URL url;
+        try {
+            url = builder.generateGenericMapUrl(parameters, showHydrants, showRoute);
+        }
+        catch (Exception e) {
+            return generateErrorResponse("ERROR: Exception generating URL: " + e.getMessage());
+        }
+
+        byte[] image;
+        try(InputStream in = url.openStream()) {
+            image = StreamUtils.copyToByteArray(in);
+        }
+        catch (Exception e) {
+            return generateErrorResponse("ERROR: Exception downloading image: " + e.getMessage());
         }
 
         return ResponseEntity

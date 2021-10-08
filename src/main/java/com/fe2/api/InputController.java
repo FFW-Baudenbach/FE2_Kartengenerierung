@@ -3,6 +3,7 @@ package com.fe2.api;
 import com.fe2.service.MapGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,6 +50,28 @@ public class InputController {
                                         @RequestParam(value="identifier") Optional<String> identifier)
     {
         return mapGenerator.generateMap("route", lat, lng, size, identifier);
+    }
+
+    /*
+    Example: http://localhost:8080/generic?lat=49.64703345265409&lng=10.566260347368512&size=640x640&scale=2&zoom=15&maptype=roadmap&showRoute=true&showHydrants=true
+
+    Supported Parameters:
+        * lat, lng (internally combined to 'center')
+        * size
+        * scale (optional)
+        * zoom
+        * maptype
+        * language (optional)
+        * region (optional)
+        * style (optional, multiple values supported)
+        * markers (optional, multiple values supported)
+    */
+    @GetMapping("/generic")
+    public ResponseEntity<Object> generic(@RequestParam MultiValueMap<String, String> parameters,
+                                          @RequestParam(value="showHydrants", defaultValue = "false") boolean showHydrants,
+                                          @RequestParam(value="showRoute", defaultValue = "false") boolean showRoute)
+    {
+        return mapGenerator.generateMap(parameters, showHydrants, showRoute);
     }
 
 }
