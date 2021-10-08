@@ -4,11 +4,14 @@ import com.fe2.configuration.Configuration;
 import com.fe2.helper.UrlHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -91,7 +94,74 @@ public class UrlBuilder {
         return authorizeStaticMapsApiUrl(url);
     }
 
+    public URL generateGenericMapUrl(final MultiValueMap<String, String> parameters, boolean showHydrants, boolean showRoute) throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException
+    {
+        if (parameters.containsKey("center")) {
+            throw new RuntimeException("Please use Parameters lat and lng instead of center");
+        }
 
+        String size = getSingleParameterValue(parameters, "size", false);
+        String scale = getSingleParameterValue(parameters, "scale", true);
+        String lat = getSingleParameterValue(parameters, "lat", false);
+        String lng = getSingleParameterValue(parameters, "lng", false);
+        String zoom = getSingleParameterValue(parameters, "zoom", false);
+        String mapType = getSingleParameterValue(parameters, "maptype", false);
+        String language = getSingleParameterValue(parameters, "language", true);
+        String region = getSingleParameterValue(parameters, "region", true);
+
+        List<String> styles = getMultipleParameterValues(parameters, "style", true);
+        List<String> markers = getMultipleParameterValues(parameters, "markers", true);
+
+        String url = baseUrl + "?size=" + size;
+        url += UrlHelper.buildProperParameter("scale", scale);
+        url += UrlHelper.buildProperParameter("center", lat + "," + lng);
+        url += UrlHelper.buildProperParameter("zoom", zoom);
+        url += UrlHelper.buildProperParameter("format", configuration.getOutputFormat());
+        url += UrlHelper.buildProperParameter("maptype", mapType);
+        url += UrlHelper.buildProperParameter("language", language);
+        url += UrlHelper.buildProperParameter("region", region);
+
+        for (String style : styles) {
+            url += UrlHelper.buildProperParameter("style", style);
+        }
+        for (String marker : markers) {
+            url += UrlHelper.buildProperParameter("markers", marker);
+        }
+
+        if (showHydrants) {
+            url += hydrantService.generateHydrantsAsMarkers(Double.parseDouble(lat), Double.parseDouble(lng), 100, 0.5, true, false);
+        }
+
+        if (showRoute) {
+            Optional<String> route = destinationService.getEncodedPolylines(Double.parseDouble(lat), Double.parseDouble(lng));
+            if (route.isPresent())
+                url += UrlHelper.buildProperParameter("path", "color:0x0000ff60|weight:5|enc:" + route.get());
+        }
+
+        return authorizeStaticMapsApiUrl(url);
+    }
+
+    private String getSingleParameterValue(final MultiValueMap<String, String> parameters, String key, boolean optional) {
+        if (!parameters.containsKey(key)) {
+            if (optional)
+                return null;
+            throw new RuntimeException("Missing mandatory URL Parameter: " + key);
+        }
+        var values = parameters.get(key);
+        if (values.size() != 1) {
+            throw new RuntimeException("Exactly one URL Parameter with Key expected: " + key);
+        }
+        return parameters.getFirst(key);
+    }
+
+    private List<String> getMultipleParameterValues(final MultiValueMap<String, String> parameters, String key, boolean optional) {
+        if (!parameters.containsKey(key)) {
+            if (optional)
+                return new ArrayList<>();
+            throw new RuntimeException("Missing mandatory URL Parameter: " + key);
+        }
+        return parameters.get(key);
+    }
 
     private URL authorizeStaticMapsApiUrl(final String url) throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException
     {

@@ -34,6 +34,24 @@ Erstellt eine Detailkarte des Einsatzortes in Satellitenansicht inklusive Hydran
 Erstellt eine Routenkarte vom Standort zum Einsatzort. Zeigt größere Wasservorkommen in der Umgebung an.  
 ```http://localhost:8080/route?lat=49.123&lng=10.500&size=640x640```
 ![Alt text](screenshots/readme/route.png?raw=true "Generated route")
+### Generic
+Erstellt eine generische Karte. Alle Parameter müssen von Hand gesetzt werden, und werden
+1:1 an die [Google Static Maps API](https://developers.google.com/maps/documentation/maps-static/start) weitergegeben.  
+Die einzige Ausnahme betrifft den Parameter *center*. Dieser muss getrennt als *lat* und *lng* angegeben werden.  
+Folgende Parameter werden unterstützt: 
+* lat, lng (bilden intern den Parmameter *center*)
+* size
+* scale (optional)
+* zoom
+* maptype
+* language (optional)
+* region (optional)
+* style (optional, kann mehrfach gesetzt werden)
+* markers (optional, kann mehrfach gesetzt werden)  
+
+Des Weiteren werden Hydranten und Routen unterstützt:
+* showHydrants (optional, default = false)
+* showRoute (optional, default = false)
 ### Health check  
 Bietet eine Monitoringschnittstelle zur Überwachung und zum Prüfen der Konfiguration.  
 ```http://localhost:8080/actuator/health```  
