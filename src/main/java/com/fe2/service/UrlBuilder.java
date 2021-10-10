@@ -94,7 +94,8 @@ public class UrlBuilder {
         return authorizeStaticMapsApiUrl(url);
     }
 
-    public URL generateGenericMapUrl(final MultiValueMap<String, String> parameters, boolean showHydrants, boolean showRoute) throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException
+    public URL generateGenericMapUrl(final MultiValueMap<String, String> parameters, boolean showHydrants, boolean showRoute, boolean showPois)
+            throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException
     {
         if (parameters.containsKey("center")) {
             throw new RuntimeException("Please use Parameters lat and lng instead of center");
@@ -111,6 +112,11 @@ public class UrlBuilder {
 
         List<String> styles = getMultipleParameterValues(parameters, "style", true);
         List<String> markers = getMultipleParameterValues(parameters, "markers", true);
+
+        if (!showPois) {
+            styles.add("feature:poi|visibility:off"); //Don't show Pois
+            styles.add("feature:transit|visibility:off"); // Don't show Transit symbols
+        }
 
         String url = baseUrl + "?size=" + size;
         url += UrlHelper.buildProperParameter("scale", scale);

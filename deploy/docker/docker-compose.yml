@@ -5,7 +5,7 @@ services:
     image: odin568/fe2_kartengenerierung:latest
     container_name: fe2_kartengenerierung
     ports:
-      - 8080:8080
+      - "8080:8080"
     restart: always
     # Define external mapping to access maps from other processes
 #    volumes:

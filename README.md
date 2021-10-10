@@ -52,6 +52,9 @@ Folgende Parameter werden unterstützt:
 Des Weiteren werden Hydranten und Routen unterstützt:
 * showHydrants (optional, default = false)
 * showRoute (optional, default = false)
+
+Da in der Regel keine POIs oder Bushaltestellen auf der Karte gebraucht werden, werden diese Styles standardmäßig deaktiviert, dieses Verhalten kann aber überschrieben werden:
+* showPois (optional, default = false)
 ### Health check  
 Bietet eine Monitoringschnittstelle zur Überwachung und zum Prüfen der Konfiguration.  
 ```http://localhost:8080/actuator/health```  
@@ -103,6 +106,9 @@ wk.token=123456
 ###### If not defined for any or all sourceTypeIds, fallback to default icon.
 ###### Example: <id>=<url>;<id2>=<url2> etc.
 wk.customIcons=1=https://bit.ly/Hydrant16O.png;2=https://bit.ly/Hydrant16U.png;3=https://bit.ly/Hydrant16W.png
+
+###### OPTIONAL: Provide custom port. Default, if omitted is 8080
+server.port=8080
 ```
 ## Links
 * [DockerHub](https://hub.docker.com/r/odin568/fe2_kartengenerierung) 

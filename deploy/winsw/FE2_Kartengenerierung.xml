@@ -22,7 +22,9 @@
     <env name="wk.token" value="123456" />
     <!-- optional -->
     <env name="wk.customIcons" value="1=https://bit.ly/Hydrant16O.png;2=https://bit.ly/Hydrant16U.png;3=https://bit.ly/Hydrant16W.png" />
-  
+    <!-- optional, default is 8080 -->
+    <env name="server.port" value="8080" />
+
     <logpath>%BASE%\logs</logpath>
     <log mode="roll-by-size">
       <sizeThreshold>10240</sizeThreshold>

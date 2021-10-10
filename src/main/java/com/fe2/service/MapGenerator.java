@@ -83,11 +83,11 @@ public class MapGenerator {
                 .body(image);
     }
 
-    public ResponseEntity<Object> generateMap(final MultiValueMap<String, String> parameters, boolean showHydrants, boolean showRoute)
+    public ResponseEntity<Object> generateMap(final MultiValueMap<String, String> parameters, boolean showHydrants, boolean showRoute, boolean showPois)
     {
         URL url;
         try {
-            url = builder.generateGenericMapUrl(parameters, showHydrants, showRoute);
+            url = builder.generateGenericMapUrl(parameters, showHydrants, showRoute, showPois);
         }
         catch (Exception e) {
             return generateErrorResponse("ERROR: Exception generating URL: " + e.getMessage());

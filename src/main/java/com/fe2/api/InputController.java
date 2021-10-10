@@ -69,9 +69,10 @@ public class InputController {
     @GetMapping("/generic")
     public ResponseEntity<Object> generic(@RequestParam MultiValueMap<String, String> parameters,
                                           @RequestParam(value="showHydrants", defaultValue = "false") boolean showHydrants,
-                                          @RequestParam(value="showRoute", defaultValue = "false") boolean showRoute)
+                                          @RequestParam(value="showRoute", defaultValue = "false") boolean showRoute,
+                                          @RequestParam(value="showPois", defaultValue = "false") boolean showPois)
     {
-        return mapGenerator.generateMap(parameters, showHydrants, showRoute);
+        return mapGenerator.generateMap(parameters, showHydrants, showRoute, showPois);
     }
 
 }
