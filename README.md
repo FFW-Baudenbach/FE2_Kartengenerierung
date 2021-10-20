@@ -72,11 +72,12 @@ Architekturen: ```linux/amd64```, ```linux/arm/v7``` und ```linux/arm64```
 * Für Updates genügt es in Zukunft die Versionsnummer in der Datei *docker-compose.yml* anzupassen.
 ### Windows Service
 *Realisiert durch [WinSW](https://github.com/winsw/winsw)*  
-Vorbedingung: Java (mindestens Version 11) muss installiert sein (Path-Variable gesetzt)
+Vorbedingung: Java 17 (oder neuer) muss korrekt installiert sein (Path-Variable gesetzt)  
+Überprüfen kann man das mit dem Befehl ```java -version``` auf der Kommandozeile.
 * Lade Archiv [FE2_Kartengenerierung_WinSW.zip](https://github.com/odin568/FE2_Kartengenerierung/releases) herunter und entpacke es.
 * Passe Konfiguration in *FE2_Kartengenerierung.xml* an (**env**)
-* Führe ```./FE2_Kartengenerierung.exe install``` aus. Alternativ benutze bereitgestellte Skripte: ```./install.bat```
-* Für Updates genügt es in Zukunft den Service zu stoppen (```./stop.bat```) und das aktuellste [FE2_Kartengenerierung.jar](https://github.com/odin568/FE2_Kartengenerierung/releases) herunterzuladen und die alte Datei zu ersetzen. Dann kann der Service wieder gestartet werden (```./start.bat```).
+* Führe ```FE2_Kartengenerierung.exe install``` aus. Alternativ benutze bereitgestellte Skripte: ```install.bat```
+* Für Updates genügt es in Zukunft den Service zu stoppen (```stop.bat```) und das aktuellste [FE2_Kartengenerierung.jar](https://github.com/odin568/FE2_Kartengenerierung/releases) herunterzuladen und die alte Datei zu ersetzen. Dann kann der Service wieder gestartet werden (```start.bat```).
 ## Konfiguration
 Das Tool benötigt Konfiguration, insbesondere API-Keys. Des Weiteren gibt es optionale Schalter.  
 Die gesamte Konfiguration erfolgt über Umgebungsvariablen, die entweder manuell oder über Docker/WinSW (s.o.) gesetzt werden.  
