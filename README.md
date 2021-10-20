@@ -55,6 +55,10 @@ Des Weiteren werden Hydranten und Routen unterstützt:
 
 Da in der Regel keine POIs oder Bushaltestellen auf der Karte gebraucht werden, werden diese Styles standardmäßig deaktiviert, dieses Verhalten kann aber überschrieben werden:
 * showPois (optional, default = false)
+ 
+Beispiel:  
+```http://localhost:8080/generic?lat=49.64703345265409&lng=10.566260347368512&size=640x640&scale=2&zoom=15&maptype=roadmap&showRoute=true&showHydrants=true```
+
 ### Health check  
 Bietet eine Monitoringschnittstelle zur Überwachung und zum Prüfen der Konfiguration.  
 ```http://localhost:8080/actuator/health```  
