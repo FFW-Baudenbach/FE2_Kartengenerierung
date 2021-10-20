@@ -1,7 +1,7 @@
 <service>
     <id>FE2_Kartengenerierung</id>
     <name>FE2_Kartengenerierung</name>
-    <description>Service Wrapper around starting the Application</description>
+    <description>Service Wrapper around starting FE2_Kartengenerierung</description>
     <executable>java.exe</executable>
     <arguments>-jar "%BASE%\FE2_Kartengenerierung.jar"</arguments>
 
