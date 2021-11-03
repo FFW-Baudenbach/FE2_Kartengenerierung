@@ -32,6 +32,10 @@ println("Building version $version")
 // Omit version number in artifacts for simpler releases
 bootJar.archiveFileName = "FE2_Kartengenerierung.jar"
 
+jar {
+	enabled = false
+}
+
 repositories {
 	mavenCentral()
 }
