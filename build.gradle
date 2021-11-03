@@ -8,7 +8,10 @@ plugins {
 // Use LTS version
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        // FE2 uses Java 16 (as of 2.23). To avoid problems when users
+        // install this tool on very same host, use same version, even if
+        // Java 17+ is available.
+        languageVersion = JavaLanguageVersion.of(16)
         vendor = JvmVendorSpec.ADOPTOPENJDK
     }
 }
