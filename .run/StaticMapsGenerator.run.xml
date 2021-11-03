@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="StaticMapsGenerator" type="Application" factoryName="Application" nameIsGenerated="true">
     <envs>
-      <env name="SPRING.CONFIG.LOCATION" value="./ffw/application.properties" />
+      <env name="SPRING.CONFIG.LOCATION" value="./ffw/application.yml" />
     </envs>
     <option name="MAIN_CLASS_NAME" value="com.fe2.StaticMapsGenerator" />
     <module name="FE2_Kartengenerierung.main" />

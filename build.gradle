@@ -5,6 +5,7 @@ plugins {
 	id 'idea'
 }
 
+group
 // Use LTS version
 java {
     toolchain {
