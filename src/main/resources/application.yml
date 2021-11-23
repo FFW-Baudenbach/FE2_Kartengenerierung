@@ -10,10 +10,10 @@ management:
           - info
           - health
   endpoint:
-    info:
-      enabled: true
     health:
-      enabled: true
       show-details: ALWAYS
+  info:
+    java:
+      enabled: true
   security:
     enabled: false
