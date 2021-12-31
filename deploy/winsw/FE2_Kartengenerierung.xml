@@ -3,6 +3,10 @@
     <name>FE2_Kartengenerierung</name>
     <description>Service Wrapper around starting FE2_Kartengenerierung</description>
     <executable>java.exe</executable>
+    <!--
+    If java not found in PATH, you can also specify full path for executable, example:
+    C:\Program Files\Alamos GmH\JRE\bin\java.exe
+    -->
     <arguments>-jar "%BASE%\FE2_Kartengenerierung.jar"</arguments>
 
     <!-- required -->
