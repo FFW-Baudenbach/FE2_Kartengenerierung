@@ -16,8 +16,6 @@ services:
       timeout: 10s
       retries: 3
     environment:
-      # optional
-      - TZ=Europe/Berlin
       # required
       - gcp.maps.apiKey=123456
       # optional
