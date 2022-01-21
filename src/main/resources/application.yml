@@ -5,6 +5,10 @@ spring:
 management:
   endpoints:
     web:
+      cors:
+        allowed-headers: '*'
+        allowed-origins: '*'
+        allowed-methods: '*'
       exposure:
         include:
           - info
