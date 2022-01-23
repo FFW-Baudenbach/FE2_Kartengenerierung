@@ -30,6 +30,8 @@ services:
       # required
       - OUTPUT_FORMAT=png32
       # optional
+      - CACHE_FOLDER=/maps_cache
+      # optional
       - WK_TOKEN=123456
       # optional
       - WK_CUSTOMICONS=1=https://bit.ly/Hydrant16O.png;2=https://bit.ly/Hydrant16U.png;3=https://bit.ly/Hydrant16W.png

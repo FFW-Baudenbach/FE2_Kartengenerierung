@@ -10,6 +10,7 @@ if %errorlevel%==1 (
 
 @echo Creating output directory if it does not exist...
 if not exist "maps" mkdir maps
+if not exist "maps" mkdir maps_cache
 
 @echo Installing Service...
 FE2_Kartengenerierung.exe install

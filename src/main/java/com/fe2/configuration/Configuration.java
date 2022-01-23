@@ -49,6 +49,9 @@ public class Configuration implements HealthIndicator {
 
     @Value("#{'${wk.customIcons:}'.split(';')}")
     private List<String> wk_customIcons; // Optional
+    
+    @Value("${cache.folder:}")
+    private String cache_folder; // Optional
 
     /**
      * Create index.html file.
@@ -155,6 +158,14 @@ public class Configuration implements HealthIndicator {
 
         return configuredIcons;
     }
+    
+    public String getCacheFolder() {
+        return cache_folder;
+    }
+    
+    public boolean isCacheEnabled() {
+        return cache_folder != null && !cache_folder.isBlank();
+    }
 
     public boolean isImageStoringEnabled() {
         return output_folder != null && !output_folder.isBlank();
@@ -182,6 +193,7 @@ public class Configuration implements HealthIndicator {
 
         kv.put("isDirectionsApiEnabled", isDirectionsApiEnabled());
         kv.put("isImageStoringEnabled", isImageStoringEnabled());
+        kv.put("isCacheEnabled", isCacheEnabled());
         kv.put("isSigningEnabled", isSigningEnabled());
         kv.put("isWasserkarteInfoApiEnabled", isWasserkarteInfoApiEnabled());
         kv.put("WasserkarteInfoCustomIcons-Configured", getConfiguredWasserkarteInfoCustomIcons().size());
@@ -193,6 +205,14 @@ public class Configuration implements HealthIndicator {
             String directoryMsg = directoryHealth.getDetails().entrySet().iterator().next().getValue().toString();
             kv.put("OutputDirectory-Configured", getOutputFolder());
             kv.put("OutputDirectory-Valid", directoryMsg);
+        }
+        if (isCacheEnabled()) {
+            Health directoryHealth = FileHelper.canReadWriteDirectory(Paths.get(getCacheFolder()));
+            isUp = directoryHealth.getStatus() == Status.UP;
+
+            String directoryMsg = directoryHealth.getDetails().entrySet().iterator().next().getValue().toString();
+            kv.put("CacheDirectory-Configured", getCacheFolder());
+            kv.put("CacheDirectory-Valid", directoryMsg);
         }
         kv.put("OutputFormat", getOutputFormat());
 

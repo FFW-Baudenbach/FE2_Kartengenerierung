@@ -22,6 +22,8 @@
     <env name="output.folder" value="%BASE%\maps" />
     <!-- required -->
     <env name="output.format" value="png32" />
+	<!-- optional -->
+    <env name="output.folder" value="%BASE%\maps_cache" />
     <!-- optional -->
     <env name="wk.token" value="123456" />
     <!-- optional -->
