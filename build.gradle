@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.7.5'
+	id 'org.springframework.boot' version '3.0.0'
 	id 'io.spring.dependency-management' version '1.1.0'
 	id 'java'
 	id 'idea'
@@ -7,11 +7,7 @@ plugins {
 
 java {
     toolchain {
-        // FE2 uses Java 16 (as of 2.23). To avoid problems when users
-        // install this tool on very same host, use same version, even if
-        // Java 17+ is available.
-        languageVersion = JavaLanguageVersion.of(16)
-        vendor = JvmVendorSpec.ADOPTOPENJDK
+        languageVersion = JavaLanguageVersion.of(17)
     }
 }
 
@@ -41,6 +37,7 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
 	implementation 'com.google.maps:google-maps-services:2.1.2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

@@ -22,6 +22,9 @@ public class MapGenerator {
     private UrlBuilder builder;
 
     @Autowired
+    private ImageRetriever imageRetriever;
+
+    @Autowired
     private Configuration configuration;
 
 
@@ -60,8 +63,8 @@ public class MapGenerator {
         }
 
         byte[] image;
-        try(InputStream in = url.openStream()) {
-            image = StreamUtils.copyToByteArray(in);
+        try {
+            image = imageRetriever.downloadImage(url);
         }
         catch (Exception e) {
             return generateErrorResponse("ERROR: Exception downloading image: " + e.getMessage());
@@ -94,8 +97,8 @@ public class MapGenerator {
         }
 
         byte[] image;
-        try(InputStream in = url.openStream()) {
-            image = StreamUtils.copyToByteArray(in);
+        try {
+            image = imageRetriever.downloadImage(url);
         }
         catch (Exception e) {
             return generateErrorResponse("ERROR: Exception downloading image: " + e.getMessage());

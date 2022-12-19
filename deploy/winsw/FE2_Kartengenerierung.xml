@@ -9,6 +9,8 @@
     -->
     <arguments>-jar "%BASE%\FE2_Kartengenerierung.jar"</arguments>
 
+    <!-- optional -->
+    <env name="gcp.caching.enabled" value="true" />
     <!-- required -->
     <env name="gcp.maps.apiKey" value="123456" />
     <!-- optional -->

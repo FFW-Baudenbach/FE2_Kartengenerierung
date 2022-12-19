@@ -1,13 +1,14 @@
 package com.fe2.configuration;
 
 import com.fe2.helper.FileHelper;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -22,6 +23,9 @@ import java.util.TreeMap;
 
 @Component
 public class Configuration implements HealthIndicator {
+
+    @Value("${gcp.caching.enabled:False}")
+    private boolean cachingEnabled;
 
     @Value("${gcp.maps.apiKey}")
     private String gcp_maps_apiKey;
@@ -156,6 +160,10 @@ public class Configuration implements HealthIndicator {
         return configuredIcons;
     }
 
+    public boolean isCachingEnabled() {
+        return cachingEnabled;
+    }
+
     public boolean isImageStoringEnabled() {
         return output_folder != null && !output_folder.isBlank();
     }
@@ -180,6 +188,7 @@ public class Configuration implements HealthIndicator {
         Map<String, Object> kv = new TreeMap<>();
         boolean isUp = true;
 
+        kv.put("isCachingEnabled", cachingEnabled);
         kv.put("isDirectionsApiEnabled", isDirectionsApiEnabled());
         kv.put("isImageStoringEnabled", isImageStoringEnabled());
         kv.put("isSigningEnabled", isSigningEnabled());

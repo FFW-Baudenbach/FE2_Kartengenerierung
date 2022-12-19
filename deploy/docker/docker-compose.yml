@@ -16,6 +16,7 @@ services:
       timeout: 10s
       retries: 3
     environment:
+      - GCP_CACHING_ENABLED=true
       # required
       - GCP_MAPS_APIKEY=123456
       # optional
