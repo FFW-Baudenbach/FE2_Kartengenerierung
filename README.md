@@ -88,6 +88,9 @@ Das Tool benötigt Konfiguration, insbesondere API-Keys. Des Weiteren gibt es op
 Die gesamte Konfiguration erfolgt über Umgebungsvariablen, die entweder manuell oder über Docker/WinSW (s.o.) gesetzt werden.  
 Eine Auflistung aller Optionen:  
 ```
+###### OPTIONAL: If configured, application will cache results for 60 minutes.
+gcp.caching.enabled=true
+
 ###### MANDATORY: The Google Cloud API Key authorized to access 'Maps Static API'
 gcp.maps.apiKey=123456
   
