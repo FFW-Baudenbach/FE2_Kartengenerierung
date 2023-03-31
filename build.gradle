@@ -38,7 +38,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-cache'
-	implementation 'com.google.maps:google-maps-services:2.1.2'
+	implementation 'com.google.maps:google-maps-services:2.2.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
