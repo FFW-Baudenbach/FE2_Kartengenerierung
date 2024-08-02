@@ -72,7 +72,7 @@ Bietet eine einfache Möglichkeit zum Testen und Debuggen inklusive Performancem
 ## Installation
 ### Docker
 Vorbedingung: Docker und Docker-Compose müssen installiert sein.  
-Architekturen: ```linux/amd64```, ```linux/arm/v7``` und ```linux/arm64```  
+Architekturen: ```linux/amd64``` und ```linux/arm64```  
 * Lade [docker-compose.yml](https://github.com/odin568/FE2_Kartengenerierung/releases) herunter
 * Passe Konfiguration an (**volumes**, **environments**)
 * ```docker-compose up -d```
