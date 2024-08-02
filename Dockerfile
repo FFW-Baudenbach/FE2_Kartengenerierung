@@ -14,20 +14,16 @@ ENV TZ=Europe/Berlin
 RUN apt-get update && apt-get install --no-install-recommends -y tzdata && apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# Create user/group
-RUN groupadd --gid 1001 appgroup && \
-    useradd -rm -d /home/appuser -s /bin/bash -g appgroup -G sudo -u 1001 appuser
-
 # Create and own directory
-RUN mkdir /app && chown -R appuser:appgroup /app
-USER appuser
+RUN mkdir /app && chown -R 1000:1000 /app
+USER 1000
 WORKDIR /app
 
 # Copy application from builder stage
-COPY --chown=appuser:appgroup --from=builder /app/dependencies/ ./
-COPY --chown=appuser:appgroup --from=builder /app/spring-boot-loader/ ./
-COPY --chown=appuser:appgroup --from=builder /app/snapshot-dependencies/ ./
-COPY --chown=appuser:appgroup --from=builder /app/application/ ./
+COPY --chown=1000:1000 --from=builder /app/dependencies/ ./
+COPY --chown=1000:1000 --from=builder /app/spring-boot-loader/ ./
+COPY --chown=1000:1000 --from=builder /app/snapshot-dependencies/ ./
+COPY --chown=1000:1000 --from=builder /app/application/ ./
 
 # Set entrypoint
 ENTRYPOINT ["java", "org.springframework.boot.loader.launch.JarLauncher"]
