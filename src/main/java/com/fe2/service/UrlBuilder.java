@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -31,8 +33,7 @@ public class UrlBuilder {
 
     private final String baseUrl = "https://maps.googleapis.com/maps/api/staticmap";
 
-    public URL generateOverviewRoadmapUrl(final double lat, final double lng, String sizeParam) throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException
-    {
+    public URL generateOverviewRoadmapUrl(final double lat, final double lng, String sizeParam) throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException, URISyntaxException {
         String url = baseUrl + "?size=" + sizeParam;
 
         url += UrlHelper.buildProperParameter("scale", "2");
@@ -52,8 +53,7 @@ public class UrlBuilder {
         return authorizeStaticMapsApiUrl(url);
     }
 
-    public URL generateDetailHybridUrl(final double lat, final double lng, String sizeParam) throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException
-    {
+    public URL generateDetailHybridUrl(final double lat, final double lng, String sizeParam) throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException, URISyntaxException {
         String url = baseUrl + "?size=" + sizeParam;
 
         url += UrlHelper.buildProperParameter("scale", "2");
@@ -73,8 +73,7 @@ public class UrlBuilder {
         return authorizeStaticMapsApiUrl(url);
     }
 
-    public URL generateRouteRoadmapUrl(final double lat, final double lng, String sizeParam) throws MalformedURLException, InvalidKeyException, NoSuchAlgorithmException
-    {
+    public URL generateRouteRoadmapUrl(final double lat, final double lng, String sizeParam) throws MalformedURLException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException {
         String url = baseUrl + "?size=" + sizeParam;
 
         url += UrlHelper.buildProperParameter("scale", "2");
@@ -95,8 +94,7 @@ public class UrlBuilder {
     }
 
     public URL generateGenericMapUrl(final MultiValueMap<String, String> parameters, boolean showHydrants, boolean showRoute, boolean showPois)
-            throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException
-    {
+            throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException, URISyntaxException {
         if (parameters.containsKey("center")) {
             throw new RuntimeException("Please use Parameters lat and lng instead of center");
         }
@@ -169,11 +167,10 @@ public class UrlBuilder {
         return parameters.get(key);
     }
 
-    private URL authorizeStaticMapsApiUrl(final String url) throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException
-    {
+    private URL authorizeStaticMapsApiUrl(final String url) throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException, URISyntaxException {
         String finalUrl = url + UrlHelper.buildProperParameter("key", configuration.getGcpMapsApiKey());
 
-        URL urlWithoutSignature = new URL(finalUrl);
+        URL urlWithoutSignature = new URI(finalUrl).toURL();
 
         if (!configuration.isSigningEnabled())
             return urlWithoutSignature;

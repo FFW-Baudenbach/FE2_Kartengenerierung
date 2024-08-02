@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -135,7 +136,7 @@ public class Configuration implements HealthIndicator {
         for (Map.Entry<Long, String> entry : configuredIcons.entrySet()) {
             HttpURLConnection huc = null;
             try {
-                URL u = new URL ( entry.getValue());
+                URL u = new URI( entry.getValue()).toURL();
 
                 huc = (HttpURLConnection)u.openConnection();
                 huc.setRequestMethod ("GET");

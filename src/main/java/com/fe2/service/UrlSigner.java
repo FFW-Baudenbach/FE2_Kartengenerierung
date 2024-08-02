@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -18,9 +20,9 @@ public class UrlSigner {
     @Autowired
     private Configuration configuration;
 
-    public URL signUrl(URL url) throws InvalidKeyException, NoSuchAlgorithmException, MalformedURLException {
+    public URL signUrl(URL url) throws InvalidKeyException, NoSuchAlgorithmException, MalformedURLException, URISyntaxException {
         String request = signRequest(url.getPath(), url.getQuery());
-        return new URL(url.getProtocol() + "://" + url.getHost() + request);
+        return new URI(url.getProtocol() + "://" + url.getHost() + request).toURL();
     }
 
     private String signRequest(String path, String query) throws NoSuchAlgorithmException, InvalidKeyException

@@ -7,7 +7,7 @@ plugins {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -53,15 +53,15 @@ springBoot {
 // Create zip containing WinSW ServiceWrapper and Jar File
 task packageDistribution(type: Zip) {
 	archiveFileName = "FE2_Kartengenerierung_WinSW.zip"
-	destinationDirectory = file("$buildDir/dist")
+	destinationDirectory = file("$layout.buildDirectory/dist")
 
-	from "$buildDir/../deploy/winsw", "$buildDir/libs"
+	from "$layout.buildDirectory/../deploy/winsw", "$layout.buildDirectory/libs"
 	dependsOn(assemble)
 }
 // Adapt docker-compose.yml with correct version
 task adaptDockerCompose(type: Copy) {
-	from "$buildDir/../deploy/docker/docker-compose.yml"
-	into "$buildDir/dist"
+	from "$layout.buildDirectory/../deploy/docker/docker-compose.yml"
+	into "$layout.buildDirectory/dist"
 	filter { line -> line.replaceAll('latest', version) }
 }
 

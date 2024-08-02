@@ -79,7 +79,7 @@ Architekturen: ```linux/amd64```, ```linux/arm/v7``` und ```linux/arm64```
 * Für Updates genügt es in Zukunft die Versionsnummer in der Datei *docker-compose.yml* anzupassen.
 ### Windows Service
 *Realisiert durch [WinSW](https://github.com/winsw/winsw)*  
-Vorbedingung: Java 16 (oder neuer) muss korrekt installiert sein (Path-Variable gesetzt)  
+Vorbedingung: Java 21 (oder neuer) muss korrekt installiert sein (Path-Variable gesetzt)  
 Überprüfen kann man das mit dem Befehl ```java -version``` auf der Kommandozeile.  
 Um mehrere Java Versionen auf einem Rechner zu vermeiden, kann sowohl die PATH Variable gesetzt werden oder aber der absolute Pfad zur java.exe in der Konfigurationsdatei angegeben werden.
 * Lade Archiv [FE2_Kartengenerierung_WinSW.zip](https://github.com/odin568/FE2_Kartengenerierung/releases) herunter und entpacke es.
