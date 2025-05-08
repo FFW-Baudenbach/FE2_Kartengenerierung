@@ -1,8 +1,7 @@
 FROM eclipse-temurin:21-jdk AS builder
 WORKDIR /app
 COPY build/libs/FE2_Kartengenerierung.jar application.jar
-RUN java -Djarmode=tools -jar application.jar extract --layers --destination extracted
-
+RUN java -Djarmode=layertools -jar application.jar extract --destination extracted
 
 FROM eclipse-temurin:21-jre
 LABEL maintainer="FFW Baudenbach <webmaster@ffw-baudenbach.de>"
