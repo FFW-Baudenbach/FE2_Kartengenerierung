@@ -1,7 +1,7 @@
 FROM eclipse-temurin:21-jdk AS builder
 WORKDIR /app
-COPY build/libs/FE2_Kartengenerierung.jar application.jar
-RUN java -Djarmode=layertools -jar application.jar extract --destination extracted
+COPY build/libs/*.jar application.jar
+RUN java -Djarmode=layertools -jar application.jar extract
 
 FROM eclipse-temurin:21-jre
 LABEL maintainer="FFW Baudenbach <webmaster@ffw-baudenbach.de>"
@@ -19,10 +19,10 @@ USER 1000
 WORKDIR /app
 
 # Copy application from builder stage
-COPY --chown=1000:1000 --from=builder /app/extracted/dependencies/ ./
-COPY --chown=1000:1000 --from=builder /app/extracted/spring-boot-loader/ ./
-COPY --chown=1000:1000 --from=builder /app/extracted/snapshot-dependencies/ ./
-COPY --chown=1000:1000 --from=builder /app/extracted/application/ ./
+COPY --chown=1000:1000 --from=builder /app/dependencies/ ./
+COPY --chown=1000:1000 --from=builder /app/spring-boot-loader/ ./
+COPY --chown=1000:1000 --from=builder /app/snapshot-dependencies/ ./
+COPY --chown=1000:1000 --from=builder /app/application/ ./
 
 # Set entrypoint
 ENTRYPOINT ["java", "org.springframework.boot.loader.launch.JarLauncher"]
