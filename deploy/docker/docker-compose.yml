@@ -22,10 +22,10 @@ services:
       # optional
       - GCP_MAPS_SIGNINGKEY=123456
       # optional
-      - GCP_DIRECTIONS_APIKEY=123465
+      - GCP_ROUTES_APIKEY=123465
       # optional
-      - GCP_DIRECTIONS_ORIGIN_LAT=49.123
-      - GCP_DIRECTIONS_ORIGIN_LNG=10.123
+      - GCP_ROUTES_ORIGIN_LAT=49.123
+      - GCP_ROUTES_ORIGIN_LNG=10.123
       # required
       - OUTPUT_FOLDER=/maps
       # required

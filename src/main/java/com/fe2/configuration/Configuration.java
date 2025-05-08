@@ -34,14 +34,14 @@ public class Configuration implements HealthIndicator {
     @Value("${gcp.maps.signingKey:}")
     private String gcp_maps_signingKey; // Optional
 
-    @Value("${gcp.directions.apiKey:}")
-    private String gcp_directions_apiKey; // Optional
+    @Value("${gcp.routes.apiKey:}")
+    private String gcp_routes_apiKey; // Optional
 
-    @Value("${gcp.directions.origin.lat:}")
-    private String gcp_directions_origin_lat; // Optional
+    @Value("${gcp.routes.origin.lat:}")
+    private String gcp_routes_origin_lat; // Optional
 
-    @Value("${gcp.directions.origin.lng:}")
-    private String gcp_directions_origin_lng; // Optional
+    @Value("${gcp.routes.origin.lng:}")
+    private String gcp_routes_origin_lng; // Optional
 
     @Value("${output.folder:}")
     private String output_folder; // Optional
@@ -90,13 +90,13 @@ public class Configuration implements HealthIndicator {
         return gcp_maps_signingKey;
     }
 
-    public String getGcpDirectionsApiKey() {
-        return gcp_directions_apiKey;
+    public String getGcpRoutesApiKey() {
+        return gcp_routes_apiKey;
     }
 
-    public double getGcpDirectionsOriginLat() { return Double.parseDouble(gcp_directions_origin_lat); }
+    public double getGcpRoutesOriginLat() { return Double.parseDouble(gcp_routes_origin_lat); }
 
-    public double getGcpDirectionsOriginLng() { return Double.parseDouble(gcp_directions_origin_lng); }
+    public double getGcpRoutesOriginLng() { return Double.parseDouble(gcp_routes_origin_lng); }
 
     public String getOutputFolder() {
         return output_folder;
@@ -173,10 +173,10 @@ public class Configuration implements HealthIndicator {
         return gcp_maps_signingKey != null && !gcp_maps_signingKey.isBlank();
     }
 
-    public boolean isDirectionsApiEnabled() {
-        return gcp_directions_apiKey != null && !gcp_directions_apiKey.isBlank() &&
-                gcp_directions_origin_lat != null && !gcp_directions_origin_lat.isBlank() &&
-                gcp_directions_origin_lng != null && !gcp_directions_origin_lng.isBlank();
+    public boolean isRoutesApiEnabled() {
+        return gcp_routes_apiKey != null && !gcp_routes_apiKey.isBlank() &&
+                gcp_routes_origin_lat != null && !gcp_routes_origin_lat.isBlank() &&
+                gcp_routes_origin_lng != null && !gcp_routes_origin_lng.isBlank();
     }
 
     public boolean isWasserkarteInfoApiEnabled() {
@@ -190,7 +190,7 @@ public class Configuration implements HealthIndicator {
         boolean isUp = true;
 
         kv.put("isCachingEnabled", cachingEnabled);
-        kv.put("isDirectionsApiEnabled", isDirectionsApiEnabled());
+        kv.put("isRoutesApiEnabled", isRoutesApiEnabled());
         kv.put("isImageStoringEnabled", isImageStoringEnabled());
         kv.put("isSigningEnabled", isSigningEnabled());
         kv.put("isWasserkarteInfoApiEnabled", isWasserkarteInfoApiEnabled());

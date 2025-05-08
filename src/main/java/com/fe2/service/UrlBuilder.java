@@ -26,7 +26,7 @@ public class UrlBuilder {
     private HydrantService hydrantService;
 
     @Autowired
-    private DestinationService destinationService;
+    private RoutesService routesService;
 
     @Autowired
     private Configuration configuration;
@@ -46,7 +46,7 @@ public class UrlBuilder {
         url += UrlHelper.buildProperParameter("markers", "color:red|size:mid|" + lat + "," + lng); // Destination
         url += hydrantService.generateHydrantsAsMarkers(lat, lng, 100, 0.5, true, false);
 
-        Optional<String> route = destinationService.getEncodedPolylines(lat, lng);
+        Optional<String> route = routesService.getEncodedPolylines(lat, lng);
         if (route.isPresent())
             url += UrlHelper.buildProperParameter("path", "color:0x0000ff60|weight:5|enc:" + route.get());
 
@@ -66,7 +66,7 @@ public class UrlBuilder {
         url += UrlHelper.buildProperParameter("markers", "color:white|size:mid|" + lat + "," + lng); // Destination
         url += hydrantService.generateHydrantsAsMarkers(lat, lng, 100, 0.5, false, false);
 
-        Optional<String> route = destinationService.getEncodedPolylines(lat, lng);
+        Optional<String> route = routesService.getEncodedPolylines(lat, lng);
         if (route.isPresent())
             url += UrlHelper.buildProperParameter("path", "color:0x0000ff80|weight:5|enc:" + route.get());
 
@@ -82,11 +82,11 @@ public class UrlBuilder {
         url += UrlHelper.buildProperParameter("maptype", "roadmap"); // Streets
         url += UrlHelper.buildProperParameter("style", "feature:poi|visibility:off"); // Don't show POIs
         url += UrlHelper.buildProperParameter("style", "feature:transit|visibility:off"); // Don't show Transit symbols
-        url += UrlHelper.buildProperParameter("markers", "color:white|size:tiny|" + configuration.getGcpDirectionsOriginLat() + "," + configuration.getGcpDirectionsOriginLng()); // Origin
+        url += UrlHelper.buildProperParameter("markers", "color:white|size:tiny|" + configuration.getGcpRoutesOriginLat() + "," + configuration.getGcpRoutesOriginLng()); // Origin
         url += UrlHelper.buildProperParameter("markers", "color:red|size:mid|" + lat + "," + lng); // Destination
         url += hydrantService.generateHydrantsAsMarkers(lat, lng, 100, 2.5, true, true);
 
-        Optional<String> route = destinationService.getEncodedPolylines(lat, lng);
+        Optional<String> route = routesService.getEncodedPolylines(lat, lng);
         if (route.isPresent())
             url += UrlHelper.buildProperParameter("path", "color:0x0000ff60|weight:5|enc:" + route.get());
 
@@ -137,7 +137,7 @@ public class UrlBuilder {
         }
 
         if (showRoute) {
-            Optional<String> route = destinationService.getEncodedPolylines(Double.parseDouble(lat), Double.parseDouble(lng));
+            Optional<String> route = routesService.getEncodedPolylines(Double.parseDouble(lat), Double.parseDouble(lng));
             if (route.isPresent())
                 url += UrlHelper.buildProperParameter("path", "color:0x0000ff60|weight:5|enc:" + route.get());
         }

@@ -13,7 +13,7 @@ Aus diesem Grund ist hier ein Service entstanden. Dieser bietet zwei Möglichkei
 * Fragt Hydranten im Umkreis per API von [Wasserkarte.info](https://wasserkarte.info) ab (optional, API Key wird benötigt) und fügt sie als Marker in die Karte ein. 
   Dabei werden (bis zu 5) eigene Icons unterstützt, **müssen aber separat gehostet werden** (Pixelgröße beachten!). 
   Die Applikation prüft, ob die Icons erreichbar sind. Falls nicht: Fallback auf default icon.
-* Erstellt Routenführung mithilfe von [Google Directions API](https://developers.google.com/maps/documentation/directions/overview)
+* Erstellt Routenführung mithilfe von [Google Routes API](https://developers.google.com/maps/documentation/routes)
   (API Key wird benötigt)
 * Gibt die Karte als HTTP Response zurück. Dadurch auch nutzbar im AM4 über Plugin [Website Ansicht](https://alamos-support.atlassian.net/wiki/spaces/documentation/pages/219480152/Website+Ansicht)
 * Optional: Größe der Karte konfigurierbar über URL-Parameter size (z.B. &size=320x320 )  
@@ -100,10 +100,10 @@ gcp.maps.apiKey=123456
 ###### OPTIONAL: If configured in Cloud console for static maps apiKey, sign each request for improved security.
 gcp.maps.signingKey=123546
   
-###### OPTIONAL: The Google Cloud API Key authorized to access 'Directions API' and the starting points for the route.
-gcp.directions.apiKey=123456
-gcp.directions.origin.lat=49.123
-gcp.directions.origin.lng=10.123
+###### OPTIONAL: The Google Cloud API Key authorized to access 'Routes API' and the starting points for the route.
+gcp.routes.apiKey=123456
+gcp.routes.origin.lat=49.123
+gcp.routes.origin.lng=10.123
   
 ###### OPTIONAL: A target folder to optionally save the image to
 output.folder=C:\\temp\\maps\\

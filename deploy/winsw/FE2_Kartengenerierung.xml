@@ -16,10 +16,10 @@
     <!-- optional -->
     <env name="gcp.maps.signingKey" value="123456" />
     <!-- optional -->
-    <env name="gcp.directions.apiKey" value="123465" />
+    <env name="gcp.routes.apiKey" value="123465" />
     <!-- optional -->
-    <env name="gcp.directions.origin.lat" value="49.123" />
-    <env name="gcp.directions.origin.lng" value="10.123" />
+    <env name="gcp.routes.origin.lat" value="49.123" />
+    <env name="gcp.routes.origin.lng" value="10.123" />
     <!-- required -->
     <env name="output.folder" value="%BASE%\maps" />
     <!-- required -->
