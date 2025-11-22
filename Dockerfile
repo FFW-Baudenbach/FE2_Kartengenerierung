@@ -1,9 +1,9 @@
-FROM eclipse-temurin:21.0.6_7-jdk-noble AS builder
+FROM eclipse-temurin:21-jdk-noble AS builder
 WORKDIR /app
 COPY build/libs/*.jar application.jar
-RUN java -Djarmode=layertools -jar application.jar extract
+RUN java -Djarmode=tools -jar application.jar extract --layers --launcher
 
-FROM eclipse-temurin:21.0.6_7-jre-noble
+FROM eclipse-temurin:21-jre-noble
 LABEL maintainer="FFW Baudenbach <webmaster@ffw-baudenbach.de>"
 EXPOSE 8080
 
@@ -19,10 +19,10 @@ USER 1000
 WORKDIR /app
 
 # Copy application from builder stage
-COPY --chown=1000:1000 --from=builder /app/dependencies/ ./
-COPY --chown=1000:1000 --from=builder /app/spring-boot-loader/ ./
-COPY --chown=1000:1000 --from=builder /app/snapshot-dependencies/ ./
-COPY --chown=1000:1000 --from=builder /app/application/ ./
+COPY --chown=1000:1000 --from=builder /app/application/dependencies/ ./
+COPY --chown=1000:1000 --from=builder /app/application/spring-boot-loader/ ./
+COPY --chown=1000:1000 --from=builder /app/application/snapshot-dependencies/ ./
+COPY --chown=1000:1000 --from=builder /app/application/application/ ./
 
 # Set entrypoint
 ENTRYPOINT ["java", "org.springframework.boot.loader.launch.JarLauncher"]
