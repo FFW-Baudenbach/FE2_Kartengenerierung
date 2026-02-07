@@ -4,7 +4,6 @@ import com.fe2.configuration.Configuration;
 import com.fe2.helper.UrlHelper;
 import com.fe2.pojo.wasserkarte.WasserkarteInfoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -111,7 +110,7 @@ public class HydrantService {
 
         WasserkarteInfoResponse response;
         try {
-            RestTemplate template = new RestTemplateBuilder().build();
+            RestTemplate template = new RestTemplate();
             response = template.getForObject(url, WasserkarteInfoResponse.class);
             if (response == null)
                 throw new IllegalStateException("Response is null");

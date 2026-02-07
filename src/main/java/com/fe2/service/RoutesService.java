@@ -1,10 +1,10 @@
 package com.fe2.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fe2.configuration.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -88,7 +88,7 @@ public class RoutesService {
             JsonNode polylineNode = root.path("routes").path(0).path("polyline").path("encodedPolyline");
 
             if (!polylineNode.isMissingNode() && !polylineNode.isNull()) {
-                return Optional.of(polylineNode.asText());
+                return Optional.of(polylineNode.asString());
             }
             else {
                 return Optional.empty();

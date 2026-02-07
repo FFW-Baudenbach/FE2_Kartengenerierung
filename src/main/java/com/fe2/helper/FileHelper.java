@@ -1,6 +1,6 @@
 package com.fe2.helper;
 
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.health.contributor.Health;
 import org.springframework.http.MediaType;
 
 import java.io.IOException;
